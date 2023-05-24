@@ -82,8 +82,6 @@ async function SelectDiaryListByUserID(userID, sorts, filters, offset, limit) {
 
   query += ` OFFSET $2 LIMIT $3`;
 
-  console.log(query);
-
   try {
     const diaryLst = await db.any(query, [userID, offset, limit]);
     return diaryLst.map((it) => {
