@@ -5,7 +5,7 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - med-tool-net
+      - medtool-net
     restart: always
     volumes:
       - ${PWD}/scripts:/scripts:ro
@@ -21,9 +21,26 @@ services:
         max-size: "1024k"
         max-file: "5"
 
+  back:
+    image: "osipovskijdima/medtool-back:20230524.1"
+    ports:
+      - "8080:8080"
+    networks:
+      - medtool-net
+    restart: always
+    environment:
+      - TZ=Europe/Moscow
+    env_file: environment.env
+    depends_on:
+      - postgres
+    logging:
+      options:
+        max-size: "1024k"
+        max-file: "5"
+
 volumes:
   medtool-pg-data:
 
 networks:
-  med-tool-net:
+  medtool-net:
     driver: bridge
