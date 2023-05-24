@@ -1,0 +1,8 @@
+#!/bin/sh
+
+WDIR=./
+
+# shellcheck disable=SC2164
+cd $WDIR
+
+docker-compose exec -T postgres psql -U postgres -d medtool -f ${WDIR}/backups/"$1"

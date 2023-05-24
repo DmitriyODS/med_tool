@@ -1,0 +1,8 @@
+#!/bin/sh
+
+WDIR=./
+
+# shellcheck disable=SC2164
+cd $WDIR
+
+exec docker-compose exec -T postgres psql -U postgres -d postgres -f ./scripts/create_db.sql
