@@ -1,3 +1,5 @@
+const { GenderMale, GenderFemale } = require('../globals/consts');
+
 class User {
   constructor(
     id = 0,
@@ -5,7 +7,7 @@ class User {
     birthday = new Date(),
     height = 0,
     dateCreate = new Date(),
-    gender = { id: 0, name: '' },
+    gender = '',
     login = '',
     password = ''
   ) {
@@ -21,39 +23,39 @@ class User {
 
   validate(isCreate = false) {
     if (!isCreate) {
-      if (this.id <= 0) {
+      if (!this.id || this.id <= 0) {
         return 'неверный идентификатор пользователя';
       }
     }
 
     if (isCreate) {
-      if (this.login === '') {
+      if (!this.login) {
         return 'не указан логин пользователя';
       }
 
-      if (this.password === '') {
+      if (!this.password) {
         return 'не указан пароль пользователя';
       }
     }
 
-    if (this.fio === '') {
+    if (!this.fio) {
       return 'не указано ФИО пользователя';
     }
 
-    if (this.birthday === null) {
+    if (!this.birthday || this.birthday.getTime() === 0) {
       return 'не указана дата рождения пользователя';
     }
 
-    if (this.height <= 0) {
+    if (!this.height || this.height <= 0) {
       return 'не указан рост пользователя';
     }
 
-    if (this.dateCreate === null) {
-      return 'не указана дата создания пользователя';
+    if (!this.gender) {
+      return 'не указан пол пользователя';
     }
 
-    if (this.gender.id <= 0) {
-      return 'не указан пол пользователя';
+    if (this.gender !== GenderMale && this.gender !== GenderFemale) {
+      return 'не верно указан пол пользователя, возможные значения: "Мужской", "Женский"';
     }
 
     return '';
@@ -83,10 +85,12 @@ function MakeUserFromJsonData(jsonData) {
 
   user.id = jsonData.id;
   user.fio = jsonData.fio;
-  user.birthday = jsonData.birthday;
+  user.birthday = new Date(jsonData.birthday * 1000);
   user.height = jsonData.height;
-  user.dateCreate = jsonData.dateCreate;
+  user.dateCreate = new Date();
   user.gender = jsonData.gender;
+  user.login = jsonData.login;
+  user.password = jsonData.password;
 
   return user;
 }

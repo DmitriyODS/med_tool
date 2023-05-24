@@ -30,7 +30,7 @@ async function AddDisease(curUser, disease) {
   // валидируем данные
   const res = disease.validate(true);
   if (res !== '') {
-    return res;
+    throw new Error(res);
   }
 
   // добавляем запись
@@ -52,7 +52,7 @@ async function UpdateDataDisease(curUser, disease) {
   // валидируем данные
   const res = disease.validate();
   if (res !== '') {
-    return res;
+    throw new Error(res);
   }
 
   // доп. проверка, что дату создания менять нельзя

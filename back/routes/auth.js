@@ -1,6 +1,8 @@
 const express = require('express');
 const { Auth, Refresh, Logout } = require('../controllers/auth');
 const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
+const { MakeUserFromJsonData } = require('../models/user');
+const { AddUser } = require('../controllers/users');
 
 const authRouter = express.Router();
 authRouter.use(express.json());
@@ -64,6 +66,22 @@ async function authDeleteHandler(req, res) {
     res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
+
+async function createUserRoute(req, res) {
+  try {
+    const userData = MakeUserFromJsonData(req.body);
+
+    // обрабатывам запрос
+    const result = await AddUser(userData);
+
+    // отправляем данные клиенту
+    res.json(MakeSuccessResponse(result));
+  } catch (err) {
+    res.status(500).json(MakeBaseErrorResponse(err.message));
+  }
+}
+
+authRouter.post('/createUser', createUserRoute);
 
 authRouter.post('/', authPostHandler);
 authRouter.put('/', authPutHandler);

@@ -1,3 +1,5 @@
+const { TypeDayMorning, TypeDayDay, TypeDayEvening } = require('../globals/consts');
+
 class Diary {
   constructor(
     id = 0,
@@ -25,37 +27,41 @@ class Diary {
 
   validate(isCreate = false) {
     if (!isCreate) {
-      if (this.id <= 0) {
+      if (!this.id || this.id <= 0) {
         return 'запись не найдена';
       }
     }
 
-    if (this.userID <= 0) {
+    if (!this.userID || this.userID <= 0) {
       return 'пользователь не указан';
     }
 
-    if (this.pressure <= 0) {
+    if (!this.pressure || this.pressure <= 0) {
       return 'давление не задано';
     }
 
-    if (this.pulse <= 0) {
+    if (!this.pulse || this.pulse <= 0) {
       return 'пульс не задан';
     }
 
-    if (this.bodyTemperature <= 0) {
+    if (!this.bodyTemperature || this.bodyTemperature <= 0) {
       return 'температура тела не задана';
     }
 
-    if (this.weight <= 0) {
+    if (!this.weight || this.weight <= 0) {
       return 'вес не задан';
     }
 
-    if (this.typeDay <= 0) {
+    if (!this.typeDay) {
       return 'не задано время суток';
     }
 
-    if (this.dateCreated.getTime() === 0) {
-      return 'дата создания не задана';
+    if (
+      this.typeDay !== TypeDayMorning &&
+      this.typeDay !== TypeDayDay &&
+      this.typeDay !== TypeDayEvening
+    ) {
+      return 'время суток задано не корректно, возможные значения: "Утро", "День", "Вечер"';
     }
 
     return '';
@@ -114,7 +120,6 @@ function MakeDiaryFromJsonData(data) {
   diary.sugar = data.sugar;
   diary.info = data.info;
   diary.typeDay = data.typeDay;
-  diary.dateCreated = data.dateCreate;
 
   return diary;
 }

@@ -14,7 +14,7 @@ async function AddUser(user) {
   // валидируем данные
   const res = user.validate(true);
   if (res !== '') {
-    return res;
+    throw new Error(res);
   }
 
   // добавляем запись
@@ -36,7 +36,7 @@ async function UpdateDataUser(curUser, user) {
   // валидируем данные
   const res = user.validate();
   if (res !== '') {
-    return res;
+    throw new Error(res);
   }
 
   // доп. проверка, что дату создания менять нельзя

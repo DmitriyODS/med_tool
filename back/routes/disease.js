@@ -1,7 +1,13 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
 const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
-const { GetDiseaseListByUserID, AddDisease, UpdateDataDisease, DeleteDataDisease } = require('../controllers/disease');
+const {
+  GetDiseaseListByUserID,
+  AddDisease,
+  UpdateDataDisease,
+  DeleteDataDisease,
+  GetDiseaseByID,
+} = require('../controllers/disease');
 const { MakeDiseaseFromJsonData } = require('../models/disease');
 
 const diseaseRouter = express.Router();
@@ -55,7 +61,7 @@ async function diseaseByIDGetHandler(req, res) {
     }
 
     // обрабатывам запрос
-    const result = await GetDiseaseListByUserID(curUser, diseaseID);
+    const result = await GetDiseaseByID(curUser, diseaseID);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));

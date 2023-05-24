@@ -2,8 +2,7 @@ const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
 const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
 const { MakeUserFromJsonData } = require('../models/user');
-const { AddUser, GetUserByID } = require('../controllers/users');
-const { UpdateDataDiary, DeleteDataDiary } = require('../controllers/diary');
+const { GetUserByID, UpdateDataUser, DeleteDataUser } = require('../controllers/users');
 
 const usersRouter = express.Router();
 
@@ -12,20 +11,6 @@ usersRouter.use(AuthMiddleware);
 
 // добавляем middleware для парсинга json
 usersRouter.use(express.json());
-
-async function usersPostRoute(req, res) {
-  try {
-    const userData = MakeUserFromJsonData(req.body);
-
-    // обрабатывам запрос
-    const result = await AddUser(userData);
-
-    // отправляем данные клиенту
-    res.json(MakeSuccessResponse(result));
-  } catch (err) {
-    res.status(500).json(MakeBaseErrorResponse(err.message));
-  }
-}
 
 async function usersByIDGetRoute(req, res) {
   try {
@@ -52,7 +37,7 @@ async function usersByIDPutRoute(req, res) {
     const curUser = req.user;
 
     // обрабатывам запрос
-    const result = await UpdateDataDiary(curUser, userData);
+    const result = await UpdateDataUser(curUser, userData);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -71,7 +56,7 @@ async function usersByIDDeleteRoute(req, res) {
     }
 
     // обрабатывам запрос
-    const result = await DeleteDataDiary(curUser, userID);
+    const result = await DeleteDataUser(curUser, userID);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -79,8 +64,6 @@ async function usersByIDDeleteRoute(req, res) {
     res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
-
-usersRouter.post('/', usersPostRoute);
 
 usersRouter.get('/:id', usersByIDGetRoute);
 usersRouter.put('/:id', usersByIDPutRoute);

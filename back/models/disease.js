@@ -1,10 +1,16 @@
+const {
+  StatusDiseaseChronic,
+  StatusDiseaseSick,
+  StatusDiseaseCured,
+} = require('../globals/consts');
+
 class Disease {
   constructor(
     id = 0,
     userID = 0,
     name = '',
     info = '',
-    status = { id: 0, name: '' },
+    status = '',
     dateStart = new Date(),
     dateEnd = new Date()
   ) {
@@ -19,29 +25,33 @@ class Disease {
 
   validate(isCreate = false) {
     if (!isCreate) {
-      if (this.id <= 0) {
+      if (!this.id || this.id <= 0) {
         return 'запись не найдена';
       }
     }
 
-    if (this.userID <= 0) {
+    if (!this.userID || this.userID <= 0) {
       return 'пользователь не указан';
     }
 
-    if (this.name === '') {
+    if (!this.name) {
       return 'название не задано';
     }
 
-    if (this.info === '') {
+    if (!this.info) {
       return 'информация должна быть указана';
     }
 
-    if (this.status.id <= 0) {
+    if (!this.status) {
       return 'текущий статус болезни не указан';
     }
 
-    if (this.dateStart.getTime() === 0) {
-      return 'дата начала не задана';
+    if (
+      this.status !== StatusDiseaseChronic &&
+      this.status !== StatusDiseaseSick &&
+      this.status !== StatusDiseaseCured
+    ) {
+      return 'не верно указан статус болезни, возможные статусы: "Болен", "Вылечился", "Хроническая"';
     }
 
     return '';
@@ -75,8 +85,8 @@ function MakeDiseaseFromJsonData(data) {
   disease.info = data.info;
   disease.statusID = data.statusID;
   disease.statusName = data.statusName;
-  disease.dateStart = data.dateStart;
-  disease.dateEnd = data.dateEnd;
+  disease.dateStart = new Date(data.dateStart * 1000);
+  disease.dateEnd = new Date(data.dateEnd * 1000);
 
   return disease;
 }

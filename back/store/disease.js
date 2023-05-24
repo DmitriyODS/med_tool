@@ -1,3 +1,7 @@
+const { SortArrToQueryStr, FilterArrToQueryStr } = require('../globals/utils');
+const { db } = require('./store');
+const { Diary } = require('../models/diary');
+const { Disease } = require('../models/disease');
 const sqlSelectDiseaseList = `
 SELECT id,
        user_id,
@@ -7,6 +11,7 @@ SELECT id,
        date_end,
        "info"
 FROM user_data.disease
+WHERE user_id = $1
 `;
 
 const sqlSelectDiseaseByID = `
@@ -53,25 +58,80 @@ WHERE id = $1
 `;
 
 async function SelectDiseaseListByUserID(userID, sorts, filters, offset, limit) {
-  return {
-    count: 0,
-    rows: [],
-  };
+  const querySorts = SortArrToQueryStr(sorts);
+  const queryFilters = FilterArrToQueryStr(filters);
+
+  let query = sqlSelectDiseaseList;
+  if (queryFilters !== '') {
+    query += ` AND ${queryFilters}`;
+  }
+
+  if (querySorts !== '') {
+    query += ` ORDER BY ${querySorts}`;
+  }
+
+  query += ` OFFSET $2 LIMIT $3`;
+
+  console.log(query);
+
+  try {
+    const diseaseLst = await db.any(query, [userID, offset, limit]);
+    return diseaseLst.map((it) => {
+      const disease = new Diary();
+      disease.placeholderSelect(it);
+      return disease;
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return [];
 }
 
 async function SelectDiseaseByID(userID, diaryID) {
-  return {};
+  const disease = new Disease();
+
+  try {
+    const data = await db.one(sqlSelectDiseaseByID, [diaryID, userID]);
+    disease.placeholderSelect(data);
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return disease;
 }
 
 async function InsertDisease(diary) {
+  try {
+    return await db.one(sqlInsertDisease, diary.placeholderInsert());
+  } catch (err) {
+    console.log(err.message);
+  }
+
   return 0;
 }
 
 async function UpdateDisease(userID, diary) {
+  // ещё раз утверждаем, что запрос идёт от текущего пользователя
+  diary.userID = userID;
+
+  try {
+    return await db.one(sqlUpdateDisease, diary.placeholderUpdate());
+  } catch (err) {
+    console.log(err.message);
+  }
+
   return 0;
 }
 
 async function DeleteDisease(userID, diaryID) {
+  try {
+    const result = await db.result(sqlDeleteDisease, [diaryID, userID]);
+    return result.rowCount;
+  } catch (err) {
+    console.log(err.message);
+  }
+
   return 0;
 }
 

@@ -1,4 +1,5 @@
 const { User } = require('../models/user');
+const { db } = require('./store');
 
 const sqlSelectUserByID = `
 SELECT id,
@@ -50,17 +51,65 @@ FROM user_data.users
 WHERE id = $1;
 `;
 
-async function SelectUserByID(userID) {}
+async function SelectUserByID(userID) {
+  const user = new User();
 
-async function SelectUserByLoginPass(login, pass) {
-  return new User(12);
+  try {
+    const data = await db.one(sqlSelectUserByID, [userID]);
+    user.placeholderSelect(data);
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return user;
 }
 
-async function InsertUser(user) {}
+async function SelectUserByLoginPass(login, pass) {
+  const user = new User();
 
-async function UpdateUser(userID, user) {}
+  try {
+    const data = await db.one(sqlSelectUserByLoginPass, [login, pass]);
+    user.placeholderSelect(data);
+  } catch (err) {
+    console.log(err.message);
+  }
 
-async function DeleteUser(userID) {}
+  return user;
+}
+
+async function InsertUser(user) {
+  try {
+    return await db.one(sqlInsertUser, user.placeholderInsert());
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return 0;
+}
+
+async function UpdateUser(userID, user) {
+  // ещё раз подтверждаем, что перед нами тот самый пользователь
+  user.id = userID;
+
+  try {
+    return await db.one(sqlUpdateUser, user.placeholderUpdate());
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return 0;
+}
+
+async function DeleteUser(userID) {
+  try {
+    const result = await db.result(sqlDeleteUser, [userID]);
+    return result.rowCount;
+  } catch (err) {
+    console.log(err.message);
+  }
+
+  return 0;
+}
 
 module.exports = {
   SelectUserByID,

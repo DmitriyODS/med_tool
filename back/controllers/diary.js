@@ -24,7 +24,7 @@ async function AddDiary(curUser, diary) {
   // валидируем данные
   const res = diary.validate(true);
   if (res !== '') {
-    return res;
+    throw new Error(res);
   }
 
   // добавляем запись
@@ -46,7 +46,7 @@ async function UpdateDataDiary(curUser, diary) {
   // валидируем данные
   const res = diary.validate();
   if (res !== '') {
-    return res;
+    throw new Error(res);
   }
 
   // доп. проверка, что дату создания менять нельзя
