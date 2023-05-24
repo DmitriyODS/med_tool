@@ -1,6 +1,12 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
-const { GetDiaryListByUserID, AddDiary, UpdateDiary, GetDiaryByID, DeleteDiary } = require('../controllers/diary');
+const {
+  GetDiaryListByUserID,
+  AddDiary,
+  GetDiaryByID,
+  UpdateDataDiary,
+  DeleteDataDiary,
+} = require('../controllers/diary');
 const { MakeBaseErrorResponse, MakeSuccessResponse } = require('../globals/utils');
 const { MakeDiaryFromJsonData } = require('../models/diary');
 
@@ -17,9 +23,11 @@ async function diaryGetHandler(req, res) {
     const sort = req.query.sort;
     const filter = req.query.filter;
     const curUser = req.user;
+    const offset = req.query.offset;
+    const limit = req.query.limit;
 
     // обрабатывам запрос
-    const result = await GetDiaryListByUserID(curUser, sort, filter);
+    const result = await GetDiaryListByUserID(curUser, sort, filter, offset, limit);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -49,7 +57,7 @@ async function diaryByIDPutHandler(req, res) {
     const curUser = req.user;
 
     // обрабатывам запрос
-    const result = await UpdateDiary(curUser, diaryData);
+    const result = await UpdateDataDiary(curUser, diaryData);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -87,7 +95,7 @@ async function diaryByIDDeleteHandler(req, res) {
     }
 
     // обрабатывам запрос
-    const result = await DeleteDiary(curUser, diaryID);
+    const result = await DeleteDataDiary(curUser, diaryID);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));

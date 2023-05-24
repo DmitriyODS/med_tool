@@ -1,4 +1,4 @@
-async function SelectDiaryListByUserID(userID, sorts, filters) {
+async function SelectDiaryListByUserID(userID, sorts, filters, offset, limit) {
   return {
     count: 0,
     rows: [],
@@ -13,7 +13,7 @@ async function InsertDiary(diary) {
   return 0;
 }
 
-async function UpdateDiary(diary) {
+async function UpdateDiary(userID, diary) {
   return 0;
 }
 

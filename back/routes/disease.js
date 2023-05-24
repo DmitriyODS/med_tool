@@ -1,7 +1,7 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
 const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
-const { GetDiseaseListByUserID, AddDisease, UpdateDisease, DeleteDisease } = require('../controllers/disease');
+const { GetDiseaseListByUserID, AddDisease, UpdateDataDisease, DeleteDataDisease } = require('../controllers/disease');
 const { MakeDiseaseFromJsonData } = require('../models/disease');
 
 const diseaseRouter = express.Router();
@@ -17,9 +17,11 @@ async function diseaseGetHandler(req, res) {
     const sort = req.query.sort;
     const filter = req.query.filter;
     const curUser = req.user;
+    const offset = req.query.offset;
+    const limit = req.query.limit;
 
     // обрабатывам запрос
-    const result = await GetDiseaseListByUserID(curUser, sort, filter);
+    const result = await GetDiseaseListByUserID(curUser, sort, filter, offset, limit);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -68,7 +70,7 @@ async function diseaseByIDPutHandler(req, res) {
     const curUser = req.user;
 
     // обрабатывам запрос
-    const result = await UpdateDisease(curUser, diseaseData);
+    const result = await UpdateDataDisease(curUser, diseaseData);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -87,7 +89,7 @@ async function diseaseByIDDeleteHandler(req, res) {
     }
 
     // обрабатывам запрос
-    const result = await DeleteDisease(curUser, diseaseID);
+    const result = await DeleteDataDisease(curUser, diseaseID);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));

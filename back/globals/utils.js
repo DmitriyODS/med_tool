@@ -28,10 +28,18 @@ function MakeErrorResponse(status, description) {
 }
 
 function MakeSortArr(sortStr) {
+  if (!sortStr) {
+    return [];
+  }
+
   return sortStr.split(',');
 }
 
 function MakeFilterObj(filterStr) {
+  if (!filterStr) {
+    return {};
+  }
+
   const filterArr = filterStr.split(',');
   const filterObj = {};
   filterArr.forEach((item) => {

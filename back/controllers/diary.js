@@ -1,13 +1,13 @@
 const { MakeSortArr, MakeFilterObj } = require('../globals/utils');
 const { SelectDiaryListByUserID, SelectDiaryByID, InsertDiary, UpdateDiary, DeleteDiary } = require('../store/diary');
 
-async function GetDiaryListByUserID(curUser, sort, filter) {
+async function GetDiaryListByUserID(curUser, sort, filter, offset, limit) {
   // готовим сортировки и фильтры
   const sortField = MakeSortArr(sort);
   const filterObj = MakeFilterObj(filter);
 
   // получаем и возвращаем список записей
-  return await SelectDiaryListByUserID(curUser.id, sortField, filterObj);
+  return await SelectDiaryListByUserID(curUser.id, sortField, filterObj, offset, limit);
 }
 
 async function GetDiaryByID(curUser, diaryID) {
@@ -22,7 +22,7 @@ async function GetDiaryByID(curUser, diaryID) {
 
 async function AddDiary(curUser, diary) {
   // валидируем данные
-  const res = diary.validate();
+  const res = diary.validate(true);
   if (res !== '') {
     return res;
   }
@@ -77,6 +77,6 @@ module.exports = {
   GetDiaryListByUserID,
   GetDiaryByID,
   AddDiary,
-  UpdateDiary: UpdateDataDiary,
-  DeleteDiary: DeleteDataDiary,
+  UpdateDataDiary,
+  DeleteDataDiary,
 };

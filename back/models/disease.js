@@ -6,14 +6,39 @@ class Disease {
     this.userID = userID;
     this.name = name;
     this.info = info;
-    this.statusID = statusID;
-    this.statusName = statusName;
+    this.status = status;
     this.dateStart = dateStart;
     this.dateEnd = dateEnd;
   }
 
-  validate() {
-    return true;
+  validate(isCreate = false) {
+    if (!isCreate) {
+      if (this.id <= 0) {
+        return 'запись не найдена';
+      }
+    }
+
+    if (this.userID <= 0) {
+      return 'пользователь не указан';
+    }
+
+    if (this.name === '') {
+      return 'название не задано';
+    }
+
+    if (this.info === '') {
+      return 'информация должна быть указана';
+    }
+
+    if (this.status.id <= 0) {
+      return 'текущий статус болезни не указан';
+    }
+
+    if (this.dateStart.getTime() === 0) {
+      return 'дата начала не задана';
+    }
+
+    return '';
   }
 }
 

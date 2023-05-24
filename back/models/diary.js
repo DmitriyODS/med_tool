@@ -16,7 +16,7 @@ class Diary {
     this.dateCreate = dateCreate;
   }
 
-  validate(isCreate) {
+  validate(isCreate = false) {
     if (!isCreate) {
       if (this.id <= 0) {
         return 'запись не найдена';

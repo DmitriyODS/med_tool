@@ -3,6 +3,7 @@ const { AuthMiddleware } = require('./middlewares');
 const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
 const { MakeUserFromJsonData } = require('../models/user');
 const { AddUser, GetUserByID } = require('../controllers/users');
+const { UpdateDataDiary, DeleteDataDiary } = require('../controllers/diary');
 
 const usersRouter = express.Router();
 
@@ -51,7 +52,7 @@ async function usersByIDPutRoute(req, res) {
     const curUser = req.user;
 
     // обрабатывам запрос
-    const result = await UpdateDiary(curUser, userData);
+    const result = await UpdateDataDiary(curUser, userData);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
@@ -70,7 +71,7 @@ async function usersByIDDeleteRoute(req, res) {
     }
 
     // обрабатывам запрос
-    const result = await DeleteDiary(curUser, userID);
+    const result = await DeleteDataDiary(curUser, userID);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));

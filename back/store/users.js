@@ -1,6 +1,6 @@
 const { User } = require('../models/user');
 
-async function SelectUserByID(id) {
+async function SelectUserByID(userID) {
 
 }
 
@@ -12,11 +12,11 @@ async function InsertUser(user) {
 
 }
 
-async function UpdateUser(user) {
+async function UpdateUser(userID, user) {
 
 }
 
-async function DeleteUser(id) {
+async function DeleteUser(userID) {
 
 }
 
