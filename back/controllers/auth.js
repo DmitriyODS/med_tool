@@ -1,6 +1,15 @@
 const { SelectUserByLoginPass } = require('../store/users');
-const { MakePayloadJWT, GenerateJWTAccessToken, GenerateJWTRefreshToken } = require('../globals/jwt');
-const { SelectSessionByRefreshToken, InsertSession, UpdateSession, DeleteSession } = require('../store/auth');
+const {
+  MakePayloadJWT,
+  GenerateJWTAccessToken,
+  GenerateJWTRefreshToken,
+} = require('../globals/jwt');
+const {
+  SelectSessionByRefreshToken,
+  InsertSession,
+  UpdateSession,
+  DeleteSession,
+} = require('../store/auth');
 const { User } = require('../models/user');
 const Session = require('../models/session');
 

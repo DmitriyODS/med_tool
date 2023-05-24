@@ -18,6 +18,20 @@ class Session {
 
     return !(payload === ErrJWTTokenExpired || payload === ErrJWTTokenInvalid);
   }
+
+  placeholderSelect(sqlRow) {
+    this.id = sqlRow.id;
+    this.userID = sqlRow.user_id;
+    this.refreshToken = sqlRow.refresh_token;
+  }
+
+  placeholderInsert() {
+    return [this.userID, this.refreshToken];
+  }
+
+  placeholderUpdate() {
+    return [this.refreshToken, this.userID];
+  }
 }
 
 module.exports = Session;

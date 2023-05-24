@@ -1,7 +1,14 @@
 class User {
-  constructor(id = 0, fio = '', birthday = new Date(),
-              height = 0, dateCreate = new Date(),
-              gender = { id: 0, name: '' }, login = '', password = '') {
+  constructor(
+    id = 0,
+    fio = '',
+    birthday = new Date(),
+    height = 0,
+    dateCreate = new Date(),
+    gender = { id: 0, name: '' },
+    login = '',
+    password = ''
+  ) {
     this.id = id;
     this.fio = fio;
     this.birthday = birthday;
@@ -50,6 +57,24 @@ class User {
     }
 
     return '';
+  }
+
+  placeholderSelect(sqlRow) {
+    this.id = sqlRow.id;
+    this.login = sqlRow.login;
+    this.fio = sqlRow.fio;
+    this.birthday = sqlRow.birthday;
+    this.height = sqlRow.height;
+    this.gender = sqlRow.gender;
+    this.dateCreate = sqlRow.date_created;
+  }
+
+  placeholderInsert() {
+    return [this.login, this.password, this.fio, this.birthday, this.height, this.gender];
+  }
+
+  placeholderUpdate() {
+    return [this.fio, this.height, this.id];
   }
 }
 

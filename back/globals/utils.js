@@ -35,19 +35,40 @@ function MakeSortArr(sortStr) {
   return sortStr.split(',');
 }
 
-function MakeFilterObj(filterStr) {
-  if (!filterStr) {
-    return {};
+function SortArrToQueryStr(sortArr) {
+  if (sortArr.length === 0) {
+    return '';
   }
 
-  const filterArr = filterStr.split(',');
-  const filterObj = {};
-  filterArr.forEach((item) => {
-    const [key, value] = item.split(':');
-    filterObj[key] = value;
-  });
+  return sortArr
+    .map((it) => {
+      if (it[0] === '-') {
+        return `${it.slice(1)} DESC`;
+      }
+      return it;
+    })
+    .join(', ');
+}
 
-  return filterObj;
+function FilterArrToQueryStr(filterArr) {
+  if (filterArr.length === 0) {
+    return '';
+  }
+
+  return filterArr
+    .map((it) => {
+      const [key, value] = it.split(':');
+      return `${key}=${value}`;
+    })
+    .join(' AND ');
+}
+
+function MakeFilterArr(filterStr) {
+  if (!filterStr) {
+    return [];
+  }
+
+  return filterStr.split(',');
 }
 
 module.exports = {
@@ -55,5 +76,7 @@ module.exports = {
   MakeBaseErrorResponse,
   MakeErrorResponse,
   MakeSortArr,
-  MakeFilterObj,
+  MakeFilterArr,
+  FilterArrToQueryStr,
+  SortArrToQueryStr,
 };

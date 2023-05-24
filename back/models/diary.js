@@ -1,9 +1,16 @@
 class Diary {
-  constructor(id = 0, userID = 0,
-              pressure = 0, pulse = 0,
-              bodyTemperature = 0, weight = 0,
-              sugar = 0, info = '',
-              typeDay = 0, dateCreate = new Date()) {
+  constructor(
+    id = 0,
+    userID = 0,
+    pressure = 0,
+    pulse = 0,
+    bodyTemperature = 0,
+    weight = 0,
+    sugar = 0,
+    info = '',
+    typeDay = 'Утро',
+    dateCreate = new Date()
+  ) {
     this.id = id;
     this.userID = userID;
     this.pressure = pressure;
@@ -13,7 +20,7 @@ class Diary {
     this.sugar = sugar;
     this.info = info;
     this.typeDay = typeDay;
-    this.dateCreate = dateCreate;
+    this.dateCreated = dateCreate;
   }
 
   validate(isCreate = false) {
@@ -47,11 +54,51 @@ class Diary {
       return 'не задано время суток';
     }
 
-    if (this.dateCreate.getTime() === 0) {
+    if (this.dateCreated.getTime() === 0) {
       return 'дата создания не задана';
     }
 
     return '';
+  }
+
+  placeholderSelect(sqlRow) {
+    this.id = sqlRow.id;
+    this.userID = sqlRow.user_id;
+    this.pressure = sqlRow.pressure;
+    this.pulse = sqlRow.pulse;
+    this.bodyTemperature = sqlRow.body_temperature;
+    this.weight = sqlRow.weight;
+    this.sugar = sqlRow.sugar;
+    this.info = sqlRow.info;
+    this.typeDay = sqlRow.type_day;
+    this.dateCreated = sqlRow.date_created;
+  }
+
+  placeholderInsert() {
+    return [
+      this.userID,
+      this.pressure,
+      this.pulse,
+      this.bodyTemperature,
+      this.weight,
+      this.sugar,
+      this.info,
+      this.typeDay,
+    ];
+  }
+
+  placeholderUpdate() {
+    return [
+      this.pressure,
+      this.pulse,
+      this.bodyTemperature,
+      this.weight,
+      this.sugar,
+      this.info,
+      this.typeDay,
+      this.id,
+      this.userID,
+    ];
   }
 }
 
@@ -67,7 +114,7 @@ function MakeDiaryFromJsonData(data) {
   diary.sugar = data.sugar;
   diary.info = data.info;
   diary.typeDay = data.typeDay;
-  diary.dateCreate = data.dateCreate;
+  diary.dateCreated = data.dateCreate;
 
   return diary;
 }

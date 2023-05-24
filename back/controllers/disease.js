@@ -1,4 +1,4 @@
-const { MakeSortArr, MakeFilterObj } = require('../globals/utils');
+const { MakeSortArr, MakeFilterArr } = require('../globals/utils');
 const {
   SelectDiseaseListByUserID,
   InsertDisease,
@@ -10,7 +10,7 @@ const {
 async function GetDiseaseListByUserID(curUser, sort, filter, offset, limit) {
   // готовим сортировки и фильтры
   const sortField = MakeSortArr(sort);
-  const filterObj = MakeFilterObj(filter);
+  const filterObj = MakeFilterArr(filter);
 
   // получаем и возвращаем список записей
   return await SelectDiseaseListByUserID(curUser.id, sortField, filterObj, offset, limit);

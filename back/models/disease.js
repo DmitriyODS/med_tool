@@ -1,7 +1,13 @@
 class Disease {
-  constructor(id = 0, userID = 0, name = '',
-              info = '', status = { id: 0, name: '' },
-              dateStart = new Date(), dateEnd = new Date()) {
+  constructor(
+    id = 0,
+    userID = 0,
+    name = '',
+    info = '',
+    status = { id: 0, name: '' },
+    dateStart = new Date(),
+    dateEnd = new Date()
+  ) {
     this.id = id;
     this.userID = userID;
     this.name = name;
@@ -39,6 +45,24 @@ class Disease {
     }
 
     return '';
+  }
+
+  placeholderSelect(sqlRow) {
+    this.id = sqlRow.id;
+    this.userID = sqlRow.user_id;
+    this.name = sqlRow.name;
+    this.status = sqlRow.status;
+    this.dateStart = sqlRow.date_start;
+    this.dateEnd = sqlRow.date_end;
+    this.info = sqlRow.info;
+  }
+
+  placeholderInsert() {
+    return [this.userID, this.name, this.status, this.dateStart, this.dateEnd, this.info];
+  }
+
+  placeholderUpdate() {
+    return [this.name, this.status, this.dateStart, this.dateEnd, this.info, this.id, this.userID];
   }
 }
 
