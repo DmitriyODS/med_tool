@@ -1,6 +1,6 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
-const { MakeSuccessResponse, MakeErrorResponse } = require('../globals/utils');
+const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
 const { GetDiseaseListByUserID, AddDisease, UpdateDisease, DeleteDisease } = require('../controllers/disease');
 const { MakeDiseaseFromJsonData } = require('../models/disease');
 
@@ -24,7 +24,7 @@ async function diseaseGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -39,7 +39,7 @@ async function diseasePostHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -49,7 +49,7 @@ async function diseaseByIDGetHandler(req, res) {
     const curUser = req.user;
 
     if (!diseaseID) {
-      res.status(400).json(MakeErrorResponse('запись не выбрана'));
+      res.status(400).json(MakeBaseErrorResponse('запись не выбрана'));
     }
 
     // обрабатывам запрос
@@ -58,7 +58,7 @@ async function diseaseByIDGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -73,7 +73,7 @@ async function diseaseByIDPutHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -83,7 +83,7 @@ async function diseaseByIDDeleteHandler(req, res) {
     const curUser = req.user;
 
     if (!diseaseID) {
-      res.status(400).json(MakeErrorResponse('запись не выбрана'));
+      res.status(400).json(MakeBaseErrorResponse('запись не выбрана'));
     }
 
     // обрабатывам запрос
@@ -92,7 +92,7 @@ async function diseaseByIDDeleteHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 

@@ -1,24 +1,29 @@
 const { ValidateJWTToken } = require('../globals/jwt');
-const { ErrJWTTokenExpired, ErrJWTTokenInvalid } = require('../globals/consts');
+const {
+  ErrJWTTokenExpired,
+  ErrJWTTokenInvalid,
+  ResponseStatusExpired,
+  ResponseStatusUnauthorized,
+} = require('../globals/consts');
 const { User } = require('../models/user');
-const { MakeErrorResponse } = require('../globals/utils');
+const { MakeBaseErrorResponse, MakeErrorResponse } = require('../globals/utils');
 
 // Authenticated - middleware для проверки авторизации пользователя
 function Authenticated(req, res, next) {
   const jwt = req.headers.authorization;
   if (!jwt) {
-    res.status(401).json(MakeErrorResponse('токен не предоставлен'));
+    res.status(401).json(MakeBaseErrorResponse('токен не предоставлен'));
     return;
   }
 
   const jwtPayload = ValidateJWTToken(jwt, process.env.JWT_SECRET);
   if (jwtPayload === ErrJWTTokenExpired) {
-    res.status(401).json(MakeErrorResponse('токен просрочен'));
+    res.status(401).json(MakeErrorResponse(ResponseStatusExpired, 'токен просрочен'));
     return;
   }
 
   if (jwtPayload === ErrJWTTokenInvalid) {
-    res.status(401).json(MakeErrorResponse('токен недействителен'));
+    res.status(401).json(MakeErrorResponse(ResponseStatusUnauthorized, 'токен недействителен'));
     return;
   }
 

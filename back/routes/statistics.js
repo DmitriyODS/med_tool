@@ -1,6 +1,6 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
-const { MakeSuccessResponse, MakeErrorResponse } = require('../globals/utils');
+const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
 const { GetStatisticsByUserID } = require('../controllers/statistics');
 
 const statisticsRouter = express.Router();
@@ -18,7 +18,7 @@ async function statisticsByIDGetRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 

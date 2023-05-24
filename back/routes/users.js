@@ -1,6 +1,6 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
-const { MakeSuccessResponse, MakeErrorResponse } = require('../globals/utils');
+const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
 const { MakeUserFromJsonData } = require('../models/user');
 const { AddUser, GetUserByID } = require('../controllers/users');
 
@@ -22,7 +22,7 @@ async function usersPostRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -32,7 +32,7 @@ async function usersByIDGetRoute(req, res) {
     const curUser = req.user;
 
     if (!userID) {
-      res.status(400).json(MakeErrorResponse('запись не выбрана'));
+      res.status(400).json(MakeBaseErrorResponse('запись не выбрана'));
     }
 
     // обрабатывам запрос
@@ -41,7 +41,7 @@ async function usersByIDGetRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -56,7 +56,7 @@ async function usersByIDPutRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -66,7 +66,7 @@ async function usersByIDDeleteRoute(req, res) {
     const curUser = req.user;
 
     if (!userID) {
-      res.status(400).json(MakeErrorResponse('запись не выбрана'));
+      res.status(400).json(MakeBaseErrorResponse('запись не выбрана'));
     }
 
     // обрабатывам запрос
@@ -75,7 +75,7 @@ async function usersByIDDeleteRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 

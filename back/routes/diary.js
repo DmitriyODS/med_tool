@@ -1,7 +1,7 @@
 const express = require('express');
 const { AuthMiddleware } = require('./middlewares');
 const { GetDiaryListByUserID, AddDiary, UpdateDiary, GetDiaryByID, DeleteDiary } = require('../controllers/diary');
-const { MakeErrorResponse, MakeSuccessResponse } = require('../globals/utils');
+const { MakeBaseErrorResponse, MakeSuccessResponse } = require('../globals/utils');
 const { MakeDiaryFromJsonData } = require('../models/diary');
 
 const diaryRouter = express.Router();
@@ -24,7 +24,7 @@ async function diaryGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -39,7 +39,7 @@ async function diaryPostHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -54,7 +54,7 @@ async function diaryByIDPutHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -64,7 +64,7 @@ async function diaryByIDGetHandler(req, res) {
     const curUser = req.user;
 
     if (!diaryID) {
-      res.status(400).json(MakeErrorResponse('запись не выбрана'));
+      res.status(400).json(MakeBaseErrorResponse('запись не выбрана'));
     }
 
     // обрабатывам запрос
@@ -73,7 +73,7 @@ async function diaryByIDGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -83,7 +83,7 @@ async function diaryByIDDeleteHandler(req, res) {
     const curUser = req.user;
 
     if (!diaryID) {
-      res.status(400).json(MakeErrorResponse('запись не выбрана'));
+      res.status(400).json(MakeBaseErrorResponse('запись не выбрана'));
     }
 
     // обрабатывам запрос
@@ -92,7 +92,7 @@ async function diaryByIDDeleteHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 

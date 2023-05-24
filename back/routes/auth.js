@@ -1,6 +1,6 @@
 const express = require('express');
 const { Auth, Refresh, Logout } = require('../controllers/auth');
-const { MakeSuccessResponse, MakeErrorResponse } = require('../globals/utils');
+const { MakeSuccessResponse, MakeBaseErrorResponse } = require('../globals/utils');
 
 const authRouter = express.Router();
 authRouter.use(express.json());
@@ -11,7 +11,7 @@ async function authPostHandler(req, res) {
 
     // проверяем, что в запросе есть логин и пароль
     if (!login || !password) {
-      res.status(400).json(MakeErrorResponse('не указан логин или пароль'));
+      res.status(400).json(MakeBaseErrorResponse('не указан логин или пароль'));
       return;
     }
 
@@ -21,7 +21,7 @@ async function authPostHandler(req, res) {
     // отправляем token клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -31,7 +31,7 @@ async function authPutHandler(req, res) {
 
     // проверяем, что в запросе есть token
     if (!refreshToken) {
-      res.status(400).json(MakeErrorResponse('не удалось продлить доступ'));
+      res.status(400).json(MakeBaseErrorResponse('не удалось продлить доступ'));
       return;
     }
 
@@ -41,7 +41,7 @@ async function authPutHandler(req, res) {
     // отправляем token клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 
@@ -51,7 +51,7 @@ async function authDeleteHandler(req, res) {
 
     // проверяем, что в запросе есть token
     if (!refreshToken) {
-      res.status(400).json(MakeErrorResponse('не удалось выйти'));
+      res.status(400).json(MakeBaseErrorResponse('не удалось выйти'));
       return;
     }
 
@@ -61,7 +61,7 @@ async function authDeleteHandler(req, res) {
     // говорим клиенту, что вышли
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err.message));
+    res.status(500).json(MakeBaseErrorResponse(err.message));
   }
 }
 

@@ -1,27 +1,82 @@
+const { MakeSortArr, MakeFilterObj } = require('../globals/utils');
+const { SelectDiaryListByUserID, SelectDiaryByID, InsertDiary, UpdateDiary, DeleteDiary } = require('../store/diary');
+
 async function GetDiaryListByUserID(curUser, sort, filter) {
-  return ['GetDiaryListByUserID'];
+  // готовим сортировки и фильтры
+  const sortField = MakeSortArr(sort);
+  const filterObj = MakeFilterObj(filter);
+
+  // получаем и возвращаем список записей
+  return await SelectDiaryListByUserID(curUser.id, sortField, filterObj);
 }
 
 async function GetDiaryByID(curUser, diaryID) {
-  return 'GetDiaryByID';
+  // проверим, что id действителен
+  if (diaryID <= 0) {
+    throw new Error('неверный идентификатор записи');
+  }
+
+  // получаем и возвращаем запись
+  return await SelectDiaryByID(curUser.id, diaryID);
 }
 
 async function AddDiary(curUser, diary) {
-  return 'AddDiary';
+  // валидируем данные
+  const res = diary.validate();
+  if (res !== '') {
+    return res;
+  }
+
+  // добавляем запись
+  const diaryID = await InsertDiary(diary);
+  if (diaryID <= 0) {
+    throw new Error('ошибка добавления записи');
+  }
+
+  return diaryID;
 }
 
-async function UpdateDiary(curUser, diary) {
-  return 'UpdateDiary';
+async function UpdateDataDiary(curUser, diary) {
+  // получим текущую версию записи
+  const curDiary = await SelectDiaryByID(curUser.id, diary.id);
+  if (curDiary.id === 0) {
+    throw new Error('запись не найдена');
+  }
+
+  // валидируем данные
+  const res = diary.validate();
+  if (res !== '') {
+    return res;
+  }
+
+  // доп. проверка, что дату создания менять нельзя
+  if (curDiary.dateCreate !== diary.dateCreate) {
+    throw new Error('дата создания записи не может быть изменена');
+  }
+
+  // обновляем запись
+  const resUpdate = await UpdateDiary(diary);
+  if (resUpdate <= 0) {
+    throw new Error('ошибка обновления записи');
+  }
+
+  return resUpdate;
 }
 
-async function DeleteDiary(curUser, diaryID) {
-  return 'DeleteDiary';
+async function DeleteDataDiary(curUser, diaryID) {
+  // удаляем запись
+  const resDelete = await DeleteDiary(curUser.id, diaryID);
+  if (resDelete <= 0) {
+    throw new Error('запись не найдена');
+  }
+
+  return resDelete;
 }
 
 module.exports = {
   GetDiaryListByUserID,
   GetDiaryByID,
   AddDiary,
-  UpdateDiary,
-  DeleteDiary,
+  UpdateDiary: UpdateDataDiary,
+  DeleteDiary: DeleteDataDiary,
 };

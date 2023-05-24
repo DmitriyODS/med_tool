@@ -16,8 +16,42 @@ class Diary {
     this.dateCreate = dateCreate;
   }
 
-  validate() {
-    return true;
+  validate(isCreate) {
+    if (!isCreate) {
+      if (this.id <= 0) {
+        return 'запись не найдена';
+      }
+    }
+
+    if (this.userID <= 0) {
+      return 'пользователь не указан';
+    }
+
+    if (this.pressure <= 0) {
+      return 'давление не задано';
+    }
+
+    if (this.pulse <= 0) {
+      return 'пульс не задан';
+    }
+
+    if (this.bodyTemperature <= 0) {
+      return 'температура тела не задана';
+    }
+
+    if (this.weight <= 0) {
+      return 'вес не задан';
+    }
+
+    if (this.typeDay <= 0) {
+      return 'не задано время суток';
+    }
+
+    if (this.dateCreate.getTime() === 0) {
+      return 'дата создания не задана';
+    }
+
+    return '';
   }
 }
 
