@@ -15,15 +15,14 @@ usersRouter.use(express.json());
 async function usersPostRoute(req, res) {
   try {
     const userData = MakeUserFromJsonData(req.body);
-    const curUser = req.user;
 
     // обрабатывам запрос
-    const result = await AddUser(curUser, userData);
+    const result = await AddUser(userData);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -42,7 +41,7 @@ async function usersByIDGetRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -57,7 +56,7 @@ async function usersByIDPutRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -76,7 +75,7 @@ async function usersByIDDeleteRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 

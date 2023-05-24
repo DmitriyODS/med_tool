@@ -9,6 +9,7 @@ const diary = require('./diary');
 const disease = require('./disease');
 const statistics = require('./statistics');
 const users = require('./users');
+const { MakeErrorResponse } = require('../globals/utils');
 
 // создаём конфигурацию для CORS
 const corsOptions = {
@@ -37,6 +38,11 @@ function makeRoutes(rootApp) {
   apiV1Router.use('/users', users);
 
   rootApp.use('/api/v1', apiV1Router);
+
+  // устанавливаем обработчик для несуществующих маршрутов
+  rootApp.use((req, res) => {
+    res.status(404).json(MakeErrorResponse('метода не существует'));
+  });
 }
 
 module.exports = makeRoutes;

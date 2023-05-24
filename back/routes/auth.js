@@ -21,7 +21,7 @@ async function authPostHandler(req, res) {
     // отправляем token клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -41,7 +41,7 @@ async function authPutHandler(req, res) {
     // отправляем token клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -61,7 +61,7 @@ async function authDeleteHandler(req, res) {
     // говорим клиенту, что вышли
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 

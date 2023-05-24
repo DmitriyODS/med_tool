@@ -1,4 +1,4 @@
-async function GetUserByID(userID) {
+async function GetUserByID(curUser) {
   return 'GetUserByID';
 }
 
@@ -6,11 +6,11 @@ async function AddUser(user) {
   return 'AddUser';
 }
 
-async function UpdateUser(user) {
+async function UpdateUser(curUser, user) {
   return 'UpdateUser';
 }
 
-async function DeleteUser(userID) {
+async function DeleteUser(curUser, userID) {
   return 'DeleteUser';
 }
 

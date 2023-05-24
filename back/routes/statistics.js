@@ -18,7 +18,7 @@ async function statisticsByIDGetRoute(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 

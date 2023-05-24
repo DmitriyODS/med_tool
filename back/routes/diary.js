@@ -24,7 +24,7 @@ async function diaryGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -39,7 +39,7 @@ async function diaryPostHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -54,7 +54,7 @@ async function diaryByIDPutHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -73,7 +73,7 @@ async function diaryByIDGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -92,7 +92,7 @@ async function diaryByIDDeleteHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 

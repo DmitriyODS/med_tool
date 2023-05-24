@@ -24,7 +24,7 @@ async function diseaseGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -39,7 +39,7 @@ async function diseasePostHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -58,7 +58,7 @@ async function diseaseByIDGetHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -73,7 +73,7 @@ async function diseaseByIDPutHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 
@@ -92,7 +92,7 @@ async function diseaseByIDDeleteHandler(req, res) {
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));
   } catch (err) {
-    res.status(500).json(MakeErrorResponse(err));
+    res.status(500).json(MakeErrorResponse(err.message));
   }
 }
 

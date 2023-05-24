@@ -1,20 +1,22 @@
-function SelectUserByID(id) {
+const { User } = require('../models/user');
+
+async function SelectUserByID(id) {
 
 }
 
-function SelectUserByLoginPass(login, pass) {
+async function SelectUserByLoginPass(login, pass) {
+  return new User(12);
+}
+
+async function InsertUser(user) {
 
 }
 
-function InsertUser(user) {
+async function UpdateUser(user) {
 
 }
 
-function UpdateUser(user) {
-
-}
-
-function DeleteUser(id) {
+async function DeleteUser(id) {
 
 }
 
