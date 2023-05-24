@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const { LoggerMiddleware } = require('./middlewares');
+
 // подгружаем обработчики для каждого маршрута
 const auth = require('./auth');
 const diary = require('./diary');
@@ -22,6 +24,10 @@ const apiV1Router = express.Router();
 
 // MakeRoutes - функция настройки маршрутов для корневого приложения
 function makeRoutes(rootApp) {
+  // добавляем middleware обработки логирования
+  rootApp.use(LoggerMiddleware);
+
+  // добавляем middleware обработки CORS
   rootApp.use(cors(corsOptions));
 
   apiV1Router.use('/auth', auth);
