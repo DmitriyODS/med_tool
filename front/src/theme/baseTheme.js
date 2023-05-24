@@ -10,14 +10,14 @@ const BaseTheme = createTheme({
       contrastText: '#103A21'
     },
     secondary: {
-      main: '#388CB0',
+      main: '#369dc9',
       light: '#4fa2c5',
       dark: '#216886',
       contrastText: '#093547'
     },
     background: {
       default: '#292C33',
-      paper: '#3C414B',
+      paper: '#343841',
     },
   },
 });

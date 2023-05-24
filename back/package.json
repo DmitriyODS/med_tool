@@ -1,0 +1,30 @@
+{
+  "name": "med-tool",
+  "version": "0.1.0",
+  "description": "Сервис отслеживания параметров здоровья",
+  "main": "index.js",
+  "author": "osipo@osipo.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "prettier": "prettier --write ."
+  },
+  "prettier": {
+    "printWidth": 100,
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "bracketSameLine": false
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "pg-promise": "^11.4.3"
+  },
+  "devDependencies": {
+    "prettier": "2.8.8"
+  }
+}
