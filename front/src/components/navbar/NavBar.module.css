@@ -1,0 +1,50 @@
+.root {
+    width: 16rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.root a {
+    text-decoration: none !important;
+}
+
+.menuItems {
+}
+
+.menuItem {
+    width: 100%;
+    height: 2.8rem;
+    border-radius: 4rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuItem p {
+    margin: 0 !important;
+}
+
+.userCard {
+    height: 4rem !important;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.3rem;
+}
+
+.appInfo {
+    height: 3rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.appInfo p {
+    margin: 0 !important;
+}
+
+.avatar {
+    background-color: #41acda;
+}

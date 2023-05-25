@@ -2,7 +2,7 @@ import React from 'react';
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import ErrPage from './components/errPage/ErrPage';
-import { AuthUrl, BaseUrl, DiaryUrl, DiseaseUrl, StatisticsUrl } from './globals/urlPages';
+import { UrlPages } from './globals/consts';
 
 const Home = lazy(() => import('./pages/home/Home'));
 const Auth = lazy(() => import('./pages/auth/Auth'));
@@ -12,26 +12,26 @@ const Statistics = lazy(() => import('./pages/statistics/Statistics'));
 
 const Routes = createBrowserRouter([
   {
-    path: BaseUrl,
+    path: UrlPages.Base,
     element: <Home />,
     errorElement: <ErrPage />,
     children: [
       {
-        path: DiaryUrl,
+        path: UrlPages.Diary,
         element: <Diary />,
       },
       {
-        path: DiseaseUrl,
+        path: UrlPages.Disease,
         element: <Disease />,
       },
       {
-        path: StatisticsUrl,
+        path: UrlPages.Statistics,
         element: <Statistics />,
       },
     ],
   },
   {
-    path: AuthUrl,
+    path: UrlPages.Auth,
     element: <Auth />,
   },
 ]);
