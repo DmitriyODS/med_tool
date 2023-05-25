@@ -1,5 +1,10 @@
 import { ServerAPIV1 } from './methods';
-import { MakeDataFromResponse, MakeRequestAuth, MakeRequestCreateUser, MakeRequestRefresh } from '../models/auth';
+import {
+  MakeDataFromResponse,
+  MakeRequestAuth,
+  MakeRequestCreateUser,
+  MakeRequestRefresh,
+} from '../models/auth';
 
 export async function Login(user) {
   const baseServer = process.env.REACT_APP_SERVER;

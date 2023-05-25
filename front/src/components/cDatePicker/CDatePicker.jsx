@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useController } from 'react-hook-form';
 
-
 function CDatePicker(props) {
   const { field, fieldState } = useController({ name: props.name, control: props.control });
 
@@ -16,7 +15,7 @@ function CDatePicker(props) {
       sx={{ width: '100%' }}
       label={props.label}
       disabled={props.disabled}
-      format='DD.MM.YYYY'
+      format="DD.MM.YYYY"
       value={field.value}
       inputRef={field.ref}
       onChange={field.onChange}

@@ -9,9 +9,16 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 export function DiseaseToolBar(props) {
   return (
     <Paper className={styles.toolbar}>
-      <Button className={`${styles.toolbarBtn} ${styles.viewBtn}`} startIcon={<AddOutlinedIcon />} color={'warning'}
-              disableElevation
-              variant={'contained'}>Добавить</Button>
+      <Button
+        className={`${styles.toolbarBtn} ${styles.viewBtn}`}
+        startIcon={<AddOutlinedIcon />}
+        color={'warning'}
+        disableElevation
+        variant={'contained'}
+        onClick={props.onAdd}
+      >
+        Добавить
+      </Button>
       <div className={styles.actionArea}>
         <Button
           className={styles.toolbarBtn}
@@ -20,7 +27,10 @@ export function DiseaseToolBar(props) {
           disableElevation
           variant={'outlined'}
           disabled={!props.curItem}
-        >Просмотреть</Button>
+          onClick={props.onView}
+        >
+          Просмотреть
+        </Button>
         <Button
           className={styles.toolbarBtn}
           startIcon={<EditOutlinedIcon />}
@@ -28,7 +38,10 @@ export function DiseaseToolBar(props) {
           disableElevation
           variant={'outlined'}
           disabled={!props.curItem}
-        >Изменить</Button>
+          onClick={props.onEdit}
+        >
+          Изменить
+        </Button>
         <Button
           className={styles.toolbarBtn}
           startIcon={<DeleteOutlineOutlinedIcon />}
@@ -36,7 +49,10 @@ export function DiseaseToolBar(props) {
           disableElevation
           variant={'outlined'}
           disabled={!props.curItem}
-        >Удалить</Button>
+          onClick={props.onDelete}
+        >
+          Удалить
+        </Button>
       </div>
     </Paper>
   );

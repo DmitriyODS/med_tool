@@ -4,7 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../theme/tableTheme.css';
-import { setCurItem } from '../../store/diarySlice';
+import { setCurItem } from '../../store/diseaseSlice';
 import { useDispatch } from 'react-redux';
 import { enqueueSnackbar } from 'notistack';
 import { GetDisease } from '../../api/disease';
@@ -45,16 +45,18 @@ export function DiseaseTable(props) {
       rowCount: undefined,
       getRows: (params) => {
         const result = GetDisease(params.startRow, params.endRow);
-        result.then((data) => {
-          let lastRow = -1;
-          if (data.length < (params.endRow - params.startRow)) {
-            lastRow = params.startRow + data.length;
-          }
-          params.successCallback(data, lastRow);
-        }).catch((error) => {
-          enqueueSnackbar(error.message, { variant: 'error' });
-          params.failCallback();
-        });
+        result
+          .then((data) => {
+            let lastRow = -1;
+            if (data.length < params.endRow - params.startRow) {
+              lastRow = params.startRow + data.length;
+            }
+            params.successCallback(data, lastRow);
+          })
+          .catch((error) => {
+            enqueueSnackbar(error.message, { variant: 'error' });
+            params.failCallback();
+          });
       },
     };
 

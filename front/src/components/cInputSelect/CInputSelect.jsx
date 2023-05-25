@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import InputSelect from '../inputSelect/InputSelect';
 import { useController } from 'react-hook-form';
 
-
 function CInputSelect(props) {
   const { field, fieldState } = useController({ name: props.name, control: props.control });
 

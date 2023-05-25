@@ -50,16 +50,18 @@ export function DiaryTable(props) {
       rowCount: undefined,
       getRows: (params) => {
         const result = GetDiary(params.startRow, params.endRow);
-        result.then((data) => {
-          let lastRow = -1;
-          if (data.length < (params.endRow - params.startRow)) {
-            lastRow = params.startRow + data.length;
-          }
-          params.successCallback(data, lastRow);
-        }).catch((error) => {
-          enqueueSnackbar(error.message, { variant: 'error' });
-          params.failCallback();
-        });
+        result
+          .then((data) => {
+            let lastRow = -1;
+            if (data.length < params.endRow - params.startRow) {
+              lastRow = params.startRow + data.length;
+            }
+            params.successCallback(data, lastRow);
+          })
+          .catch((error) => {
+            enqueueSnackbar(error.message, { variant: 'error' });
+            params.failCallback();
+          });
       },
     };
 

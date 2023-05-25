@@ -11,7 +11,12 @@ function InputPassword(props) {
   };
 
   return (
-    <FormControl className={props.className} sx={{ m: 1, width: '25ch' }} variant={'outlined'} fullWidth>
+    <FormControl
+      className={props.className}
+      sx={{ m: 1, width: '25ch' }}
+      variant={'outlined'}
+      fullWidth
+    >
       <InputLabel htmlFor={'outlined-adornment-password'}>Пароль</InputLabel>
       <OutlinedInput
         id={props.id}
@@ -21,7 +26,7 @@ function InputPassword(props) {
             <IconButton
               aria-label={'toggle password visibility'}
               onClick={onChangeShowPasswordHandler}
-              edge='end'
+              edge="end"
             >
               {isShowPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>

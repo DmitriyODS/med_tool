@@ -9,7 +9,7 @@ import { SnackbarProvider } from 'notistack';
 function App() {
   return (
     <Suspense fallback={<Fallback />}>
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='ru'>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
         <SnackbarProvider maxSnack={5} autoHideDuration={3000}>
           <RouterProvider router={Routes} fallbackElement={<Fallback />} />
         </SnackbarProvider>

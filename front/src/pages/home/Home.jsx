@@ -6,13 +6,7 @@ import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
 import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  logout,
-  selectIsLoading,
-  selectIsLogin,
-  setLoading,
-  setUser,
-} from '../../store/rootSlice';
+import { logout, selectIsLoading, selectIsLogin, setLoading, setUser } from '../../store/rootSlice';
 import { AccessTokenKey, UrlPages, UserIDKey } from '../../globals/consts';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { enqueueSnackbar } from 'notistack';
@@ -53,15 +47,18 @@ function Home() {
 
       // если нашли, обновим данные
       const result = GetUserByID(userID);
-      result.then((userData) => {
-        dispatch(setUser(userData));
-      }, (error) => {
-        // если не удалось получить данные, чистим localStorage и переходим на авторизацию
-        enqueueSnackbar(`Ошибка получения данныех: ${error}`, { variant: 'error' });
-        localStorage.removeItem(AccessTokenKey);
-        localStorage.removeItem(UserIDKey);
-        navigate(UrlPages.Auth, { replace: true });
-      });
+      result.then(
+        (userData) => {
+          dispatch(setUser(userData));
+        },
+        (error) => {
+          // если не удалось получить данные, чистим localStorage и переходим на авторизацию
+          enqueueSnackbar(`Ошибка получения данныех: ${error}`, { variant: 'error' });
+          localStorage.removeItem(AccessTokenKey);
+          localStorage.removeItem(UserIDKey);
+          navigate(UrlPages.Auth, { replace: true });
+        }
+      );
 
       result.finally(() => {
         dispatch(setLoading(false));
@@ -80,18 +77,25 @@ function Home() {
 
   return (
     <div className={styles.root}>
-      {isLoading ? <LoadingScreen /> : (
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
         <>
           {showAboutDialog && (
             <AboutDialog open={showAboutDialog} onClose={onCloseAboutDialogHandler} />
           )}
-          <NavBar onAboutHandler={onOpenAboutDialogHandler} logoutHandler={onLogoutHandler} menuItems={[
-            { name: 'Дневник', icon: <EditNoteOutlinedIcon />, path: UrlPages.Diary },
-            { name: 'Статистика', icon: <TimelineOutlinedIcon />, path: UrlPages.Statistics },
-            { name: 'Болезни', icon: <MedicalServicesOutlinedIcon />, path: UrlPages.Disease },
-          ]} />
+          <NavBar
+            onAboutHandler={onOpenAboutDialogHandler}
+            logoutHandler={onLogoutHandler}
+            menuItems={[
+              { name: 'Дневник', icon: <EditNoteOutlinedIcon />, path: UrlPages.Diary },
+              { name: 'Статистика', icon: <TimelineOutlinedIcon />, path: UrlPages.Statistics },
+              { name: 'Болезни', icon: <MedicalServicesOutlinedIcon />, path: UrlPages.Disease },
+            ]}
+          />
           <Outlet />
-        </>)}
+        </>
+      )}
     </div>
   );
 }

@@ -39,7 +39,7 @@ function EditDialog(props) {
       },
       (error) => {
         enqueueSnackbar(error, { variant: 'error' });
-      },
+      }
     );
     result.finally(() => setLoading(false));
   }, []);
@@ -49,7 +49,6 @@ function EditDialog(props) {
       return props.onSave(GetDiseaseDataFromFields(data));
     }
   }, []);
-
 
   return (
     <BaseDialog
@@ -62,7 +61,7 @@ function EditDialog(props) {
     >
       {loading || props.isLoading ? (
         <div className={styles.loading}>
-          <CircularProgress color='inherit' />
+          <CircularProgress color="inherit" />
           <p>Загрузка</p>
         </div>
       ) : (

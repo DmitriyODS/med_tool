@@ -1,12 +1,6 @@
 import React from 'react';
 import styles from './InputSelect.module.css';
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 
 function InputSelect(props) {
   return (
@@ -30,13 +24,14 @@ function InputSelect(props) {
         inputRef={props.refCom}
         onBlur={props.onBlur}
       >
-        {
-          props.items && props.items.map((item, index) => {
+        {props.items &&
+          props.items.map((item, index) => {
             return (
-              <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
             );
-          })
-        }
+          })}
       </Select>
       <FormHelperText>{props.helperText}</FormHelperText>
     </FormControl>

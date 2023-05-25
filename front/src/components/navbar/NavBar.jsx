@@ -11,8 +11,14 @@ function NavItem(props) {
   return (
     <NavLink to={props.path}>
       {({ isActive, isPending }) => (
-        <Button disableElevation className={styles.menuItem} variant={isActive ? 'contained' : 'outlined'}>
-          {isPending ? <CircularProgress /> : (
+        <Button
+          disableElevation
+          className={styles.menuItem}
+          variant={isActive ? 'contained' : 'outlined'}
+        >
+          {isPending ? (
+            <CircularProgress />
+          ) : (
             <>
               {props.icon}
               <p>{props.name}</p>
@@ -52,13 +58,18 @@ function NavBar(props) {
 
   return (
     <Paper className={styles.root}>
-      <Button className={styles.userCard} variant={'outlined'} color={'secondary'} disableElevation
-              onClick={onOpenUserMenuCardHandler}>
+      <Button
+        className={styles.userCard}
+        variant={'outlined'}
+        color={'secondary'}
+        disableElevation
+        onClick={onOpenUserMenuCardHandler}
+      >
         <Avatar className={styles.avatar}>{userLogin[0]}</Avatar>
         <p>{userLogin}</p>
       </Button>
       <Menu
-        id='user-menu'
+        id="user-menu"
         anchorEl={userMenuAnchorEl}
         open={open}
         onClose={onCloseUserMenuHandler}
@@ -69,18 +80,16 @@ function NavBar(props) {
         <MenuItem onClick={onLogoutUserHandler}>Выйти</MenuItem>
       </Menu>
       <nav className={styles.menuItems}>
-        {
-          props.menuItems && props.menuItems.map((item, index) => {
-            return (
-              <NavItem key={index} name={item.name} icon={item.icon} path={item.path} />
-            );
-          })
-        }
+        {props.menuItems &&
+          props.menuItems.map((item, index) => {
+            return <NavItem key={index} name={item.name} icon={item.icon} path={item.path} />;
+          })}
       </nav>
       <Button
         className={styles.appInfo}
         color={'secondary'}
-        variant={'outlined'} disableElevation
+        variant={'outlined'}
+        disableElevation
         onClick={props.onAboutHandler}
       >
         <InfoOutlinedIcon />

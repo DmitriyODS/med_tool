@@ -25,7 +25,8 @@ export const diseaseSlice = createSlice({
   },
 });
 
-export const { setFilterTypeDisease, setCurItem, setOpenEditDialog, setViewMode } = diseaseSlice.actions;
+export const { setFilterTypeDisease, setCurItem, setOpenEditDialog, setViewMode } =
+  diseaseSlice.actions;
 
 export const selectFilterTypeDisease = (state) => state.disease.filterTypeDisease;
 export const selectCurItem = (state) => state.disease.curItem;

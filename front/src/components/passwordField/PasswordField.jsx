@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-
 function PasswordField(props) {
   const [isShow, setShow] = React.useState(false);
 
@@ -39,11 +38,11 @@ function PasswordField(props) {
         value={props.value}
         onChange={props.onChange}
         endAdornment={
-          <InputAdornment position='end'>
+          <InputAdornment position="end">
             <IconButton
-              aria-label='toggle password visibility'
+              aria-label="toggle password visibility"
               onClick={onSwitchShowPasswordHandler}
-              edge='end'
+              edge="end"
             >
               {isShow ? <VisibilityOff /> : <Visibility />}
             </IconButton>

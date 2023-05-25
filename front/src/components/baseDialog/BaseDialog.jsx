@@ -1,11 +1,6 @@
 import React from 'react';
 import styles from './BaseDialog.module.css';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-} from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import IconClose from '@mui/icons-material/Close';
 
 function BaseDialog(props) {
@@ -19,17 +14,11 @@ function BaseDialog(props) {
     >
       <DialogTitle className={styles.header}>
         {props.title}
-        <IconButton
-          aria-label='close'
-          onClick={props.onClose}
-          className={styles.icon}
-        >
+        <IconButton aria-label="close" onClick={props.onClose} className={styles.icon}>
           <IconClose />
         </IconButton>
       </DialogTitle>
-      <DialogContent className={props.className}>
-        {props.children}
-      </DialogContent>
+      <DialogContent className={props.className}>{props.children}</DialogContent>
     </Dialog>
   );
 }

@@ -19,13 +19,14 @@ function SelectField(props) {
         label={props.label}
         onChange={onChangeHandler}
       >
-        {
-          props.items && props.items.map((item, index) => {
+        {props.items &&
+          props.items.map((item, index) => {
             return (
-              <MenuItem key={index} value={item.value}>{item.label}</MenuItem>
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
             );
-          })
-        }
+          })}
       </Select>
     </FormControl>
   );

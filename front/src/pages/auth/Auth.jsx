@@ -1,14 +1,16 @@
 import React from 'react';
 import styles from './Auth.module.css';
 import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
-import {
-  Paper,
-  Tab,
-  Tabs,
-} from '@mui/material';
+import { Paper, Tab, Tabs } from '@mui/material';
 import { connect } from 'react-redux';
 import { changeAuthMode, selectAuthMode } from '../../store/authSlice';
-import { AccessTokenKey, AuthTypes, RefreshTokenKey, UrlPages, UserIDKey } from '../../globals/consts';
+import {
+  AccessTokenKey,
+  AuthTypes,
+  RefreshTokenKey,
+  UrlPages,
+  UserIDKey,
+} from '../../globals/consts';
 import { Navigate } from 'react-router-dom';
 import AuthForm from './authForm/AuthForm';
 import { CreateUser, Login } from '../../api/auth';
@@ -31,27 +33,33 @@ class Auth extends React.Component {
   onSubmitHandler = (data) => {
     if (this.props.authMode === AuthTypes.Registration) {
       const result = CreateUser(data);
-      result.then((userID) => {
-        return Login(data);
-      }).then((data) => {
-        localStorage.setItem(AccessTokenKey, data.accessToken);
-        console.log(data);
-        localStorage.setItem(UserIDKey, data.userID);
-        this.props.dispatch(setUser(data));
-        this.setState({ skipLogin: true });
-      }).catch((error) => {
-        enqueueSnackbar(error, { variant: 'error' });
-      });
+      result
+        .then((userID) => {
+          return Login(data);
+        })
+        .then((data) => {
+          localStorage.setItem(AccessTokenKey, data.accessToken);
+          console.log(data);
+          localStorage.setItem(UserIDKey, data.userID);
+          this.props.dispatch(setUser(data));
+          this.setState({ skipLogin: true });
+        })
+        .catch((error) => {
+          enqueueSnackbar(error, { variant: 'error' });
+        });
     } else {
       const result = Login(data);
-      result.then((data) => {
-        localStorage.setItem(AccessTokenKey, data.accessToken);
-        localStorage.setItem(UserIDKey, data.userID);
-        this.props.dispatch(setUser(data));
-        this.setState({ skipLogin: true });
-      }, (error) => {
-        enqueueSnackbar(error, { variant: 'error' });
-      });
+      result.then(
+        (data) => {
+          localStorage.setItem(AccessTokenKey, data.accessToken);
+          localStorage.setItem(UserIDKey, data.userID);
+          this.props.dispatch(setUser(data));
+          this.setState({ skipLogin: true });
+        },
+        (error) => {
+          enqueueSnackbar(error, { variant: 'error' });
+        }
+      );
     }
   };
 

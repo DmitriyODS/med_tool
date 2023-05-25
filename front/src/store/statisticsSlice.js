@@ -1,12 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { GetDiary } from '../api/diary';
 
-export const getStatistics = createAsyncThunk(
-  'statistics/getStatistics',
-  async (arg, thunkAPI) => {
-    return await GetDiary(0, 200);
-  },
-);
+export const getStatistics = createAsyncThunk('statistics/getStatistics', async (arg, thunkAPI) => {
+  return await GetDiary(0, 200);
+});
 
 export const statisticsSlice = createSlice({
   name: 'statistics',
@@ -39,7 +36,7 @@ export const statisticsSlice = createSlice({
 
 export const { setStatistics, setLoading } = statisticsSlice.actions;
 
-export const selectStatistics = state => state.statistics.data;
-export const selectLoadingStatistics = state => state.statistics.loading;
+export const selectStatistics = (state) => state.statistics.data;
+export const selectLoadingStatistics = (state) => state.statistics.loading;
 
 export default statisticsSlice.reducer;

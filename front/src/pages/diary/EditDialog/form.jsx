@@ -3,7 +3,6 @@ import Grid from '@mui/material/Unstable_Grid2';
 import CTextField from '../../../components/cTextField/CTextField';
 import CInputSelect from '../../../components/cInputSelect/CInputSelect';
 
-
 export function FormDiary(props) {
   return (
     <Grid container spacing={4} mt={1} mb={1}>

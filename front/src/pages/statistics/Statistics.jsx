@@ -2,7 +2,11 @@ import React from 'react';
 import styles from './Statistics.module.css';
 import { connect } from 'react-redux';
 import { CartesianGrid, Line, LineChart, Tooltip, YAxis } from 'recharts';
-import { getStatistics, selectLoadingStatistics, selectStatistics } from '../../store/statisticsSlice';
+import {
+  getStatistics,
+  selectLoadingStatistics,
+  selectStatistics,
+} from '../../store/statisticsSlice';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 
 class Statistics extends React.Component {
@@ -25,8 +29,8 @@ class Statistics extends React.Component {
             data={this.props.data}
             margin={{ top: 10, right: 20, bottom: 5, left: 0 }}
           >
-            <Line type='monotone' dataKey='pressure' stroke='#369dc9' dot={false} />
-            <CartesianGrid stroke='#ccc' strokeDasharray={0} />
+            <Line type="monotone" dataKey="pressure" stroke="#369dc9" dot={false} />
+            <CartesianGrid stroke="#ccc" strokeDasharray={0} />
             <YAxis />
             <Tooltip />
           </LineChart>
@@ -39,8 +43,8 @@ class Statistics extends React.Component {
             data={this.props.data}
             margin={{ top: 10, right: 20, bottom: 5, left: 0 }}
           >
-            <Line type='monotone' dataKey='pulse' stroke='#369dc9' dot={false} />
-            <CartesianGrid stroke='#ccc' strokeDasharray={0} />
+            <Line type="monotone" dataKey="pulse" stroke="#369dc9" dot={false} />
+            <CartesianGrid stroke="#ccc" strokeDasharray={0} />
             <YAxis />
             <Tooltip />
           </LineChart>
@@ -53,8 +57,8 @@ class Statistics extends React.Component {
             data={this.props.data}
             margin={{ top: 10, right: 20, bottom: 5, left: 0 }}
           >
-            <Line type='monotone' dataKey='weight' stroke='#369dc9' dot={false} />
-            <CartesianGrid stroke='#ccc' strokeDasharray={0} />
+            <Line type="monotone" dataKey="weight" stroke="#369dc9" dot={false} />
+            <CartesianGrid stroke="#ccc" strokeDasharray={0} />
             <YAxis />
             <Tooltip />
           </LineChart>
@@ -67,8 +71,8 @@ class Statistics extends React.Component {
             data={this.props.data}
             margin={{ top: 10, right: 20, bottom: 5, left: 0 }}
           >
-            <Line type='monotone' dataKey='sugar' stroke='#369dc9' dot={false} />
-            <CartesianGrid stroke='#ccc' strokeDasharray={0} />
+            <Line type="monotone" dataKey="sugar" stroke="#369dc9" dot={false} />
+            <CartesianGrid stroke="#ccc" strokeDasharray={0} />
             <YAxis />
             <Tooltip />
           </LineChart>
@@ -79,14 +83,16 @@ class Statistics extends React.Component {
   };
 
   render() {
-    return <div className={styles.root}>
-      <div className={styles.header}>
-        <h1>Статистика</h1>
+    return (
+      <div className={styles.root}>
+        <div className={styles.header}>
+          <h1>Статистика</h1>
+        </div>
+        <div className={styles.content}>
+          {this.props.isLoading ? <LoadingScreen /> : this.renderGraphics()}
+        </div>
       </div>
-      <div className={styles.content}>
-        {this.props.isLoading ? <LoadingScreen /> : this.renderGraphics()}
-      </div>
-    </div>;
+    );
   }
 }
 

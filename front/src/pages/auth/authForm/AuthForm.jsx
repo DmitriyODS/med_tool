@@ -29,49 +29,47 @@ function AuthForm(props) {
         control={control}
         required
       />
-      {
-        props.authMode === 1 && (
-          <>
-            <CTextField
-              className={styles.spaceBottom}
-              name={'fio'}
-              label={'ФИО'}
-              fullWidth
-              control={control}
-              required
-            />
-            <CTextField
-              className={styles.spaceBottom}
-              name={'height'}
-              label={'Рост'}
-              fullWidth
-              control={control}
-              required
-              typeField={'number'}
-            />
-            <CDatePicker
-              className={styles.spaceBottom}
-              name={'birthday'}
-              label={'Дата рождения'}
-              fullWidth
-              control={control}
-              required
-            />
-            <CInputSelect
-              className={styles.spaceBottom}
-              name={'gender'}
-              label={'Пол'}
-              fullWidth
-              control={control}
-              required
-              items={[
-                { value: 0, label: 'Мужской' },
-                { value: 1, label: 'Женский' },
-              ]}
-            />
-          </>
-        )
-      }
+      {props.authMode === 1 && (
+        <>
+          <CTextField
+            className={styles.spaceBottom}
+            name={'fio'}
+            label={'ФИО'}
+            fullWidth
+            control={control}
+            required
+          />
+          <CTextField
+            className={styles.spaceBottom}
+            name={'height'}
+            label={'Рост'}
+            fullWidth
+            control={control}
+            required
+            typeField={'number'}
+          />
+          <CDatePicker
+            className={styles.spaceBottom}
+            name={'birthday'}
+            label={'Дата рождения'}
+            fullWidth
+            control={control}
+            required
+          />
+          <CInputSelect
+            className={styles.spaceBottom}
+            name={'gender'}
+            label={'Пол'}
+            fullWidth
+            control={control}
+            required
+            items={[
+              { value: 0, label: 'Мужской' },
+              { value: 1, label: 'Женский' },
+            ]}
+          />
+        </>
+      )}
       <CPasswordField
         className={styles.passwordField}
         name={'password'}
