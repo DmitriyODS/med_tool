@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from './Diary.module.css';
-import { Button, Paper, Tab, Tabs } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import { connect } from 'react-redux';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import LaunchOutlinedIcon from '@mui/icons-material/LaunchOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { selectFilterDay, setFilterDay } from '../../store/diarySlice';
+import { selectCurItem, selectData, selectFilterDay, setFilterDay } from '../../store/diarySlice';
+import { DiaryTable } from './table';
+import { DiaryToolBar } from './toolbar';
 
 class Diary extends React.Component {
   constructor(props) {
@@ -31,21 +29,8 @@ class Diary extends React.Component {
           </Tabs>
         </div>
       </div>
-      <Paper className={styles.toolbar}>
-        <Button className={`${styles.toolbarBtn} ${styles.viewBtn}`} startIcon={<AddOutlinedIcon />} color={'warning'}
-                disableElevation
-                variant={'contained'}>Добавить</Button>
-        <div className={styles.actionArea}>
-          <Button className={styles.toolbarBtn} startIcon={<LaunchOutlinedIcon />} color={'secondary'} disableElevation
-                  variant={'outlined'}>Просмотреть</Button>
-          <Button className={styles.toolbarBtn} startIcon={<EditOutlinedIcon />} color={'secondary'} disableElevation
-                  variant={'outlined'}>Изменить</Button>
-          <Button className={styles.toolbarBtn} startIcon={<DeleteOutlineOutlinedIcon />} color={'error'}
-                  disableElevation
-                  variant={'outlined'}>Удалить</Button>
-        </div>
-      </Paper>
-      <div className={styles.content}></div>
+      <DiaryToolBar curItem={this.props.curItem} />
+      <DiaryTable className={styles.content} data={this.props.data} />
     </div>;
   }
 }
@@ -53,6 +38,8 @@ class Diary extends React.Component {
 function mapStateToProps(state) {
   return {
     filterDay: selectFilterDay(state),
+    curItem: selectCurItem(state),
+    data: selectData(state),
   };
 }
 
