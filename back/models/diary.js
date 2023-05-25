@@ -11,7 +11,7 @@ class Diary {
     sugar = 0,
     info = '',
     typeDay = 'Утро',
-    dateCreate = new Date()
+    dateCreate = new Date(),
   ) {
     this.id = id;
     this.userID = userID;
@@ -23,6 +23,9 @@ class Diary {
     this.info = info;
     this.typeDay = typeDay;
     this.dateCreated = dateCreate;
+    this.fio = '';
+    this.birthday = 0;
+    this.gender = '';
   }
 
   validate(isCreate = false) {
@@ -78,6 +81,9 @@ class Diary {
     this.info = sqlRow.info;
     this.typeDay = sqlRow.type_day;
     this.dateCreated = sqlRow.date_created;
+    this.fio = sqlRow.fio;
+    this.birthday = sqlRow.birthday;
+    this.gender = sqlRow.gender;
   }
 
   placeholderInsert() {

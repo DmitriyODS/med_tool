@@ -1,4 +1,4 @@
-const { SortArrToQueryStr, FilterArrToQueryStr } = require('../globals/utils');
+// const { SortArrToQueryStr, FilterArrToQueryStr } = require('../globals/utils');
 const { db } = require('./store');
 const { Diary } = require('../models/diary');
 const { Disease } = require('../models/disease');
@@ -12,6 +12,7 @@ SELECT id,
        "info"
 FROM user_data.disease
 WHERE user_id = $1
+ OFFSET $2 LIMIT $3;
 `;
 
 const sqlSelectDiseaseByID = `
@@ -57,27 +58,26 @@ WHERE id = $1
   AND user_id = $2;
 `;
 
-async function SelectDiseaseListByUserID(userID, sorts, filters, offset, limit) {
-  const querySorts = SortArrToQueryStr(sorts);
-  const queryFilters = FilterArrToQueryStr(filters);
-
-  let query = sqlSelectDiseaseList;
-  if (queryFilters !== '') {
-    query += ` AND ${queryFilters}`;
-  }
-
-  if (querySorts !== '') {
-    query += ` ORDER BY ${querySorts}`;
-  }
-
-  query += ` OFFSET $2 LIMIT $3`;
-
-  console.log(query);
+async function SelectDiseaseListByUserID(userID, offset, limit) {
+  // TODO: не успеваю доделать
+  // const querySorts = SortArrToQueryStr(sorts);
+  // const queryFilters = FilterArrToQueryStr(filters);
+  //
+  // let query = sqlSelectDiseaseList;
+  // if (queryFilters !== '') {
+  //   query += ` AND ${queryFilters}`;
+  // }
+  //
+  // if (querySorts !== '') {
+  //   query += ` ORDER BY ${querySorts}`;
+  // }
+  //
+  // query += ` OFFSET $2 LIMIT $3`;
 
   try {
-    const diseaseLst = await db.any(query, [userID, offset, limit]);
+    const diseaseLst = await db.any(sqlSelectDiseaseList, [userID, offset, limit]);
     return diseaseLst.map((it) => {
-      const disease = new Diary();
+      const disease = new Disease();
       disease.placeholderSelect(it);
       return disease;
     });

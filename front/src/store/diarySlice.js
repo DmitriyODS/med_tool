@@ -5,7 +5,6 @@ export const diarySlice = createSlice({
   initialState: {
     filterDay: 0,
     curItem: null,
-    data: [],
   },
   reducers: {
     setFilterDay: (state, action) => {
@@ -20,10 +19,9 @@ export const diarySlice = createSlice({
   },
 });
 
-export const { setFilterDay, setCurItem, setData } = diarySlice.actions;
+export const { setFilterDay, setCurItem } = diarySlice.actions;
 
 export const selectFilterDay = (state) => state.diary.filterDay;
 export const selectCurItem = (state) => state.diary.curItem;
-export const selectData = (state) => state.diary.data;
 
 export default diarySlice.reducer;

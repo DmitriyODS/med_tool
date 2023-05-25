@@ -66,7 +66,6 @@ function NavBar(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={onOpenUserCardHandler}>Мой аккаунт</MenuItem>
         <MenuItem onClick={onLogoutUserHandler}>Выйти</MenuItem>
       </Menu>
       <nav className={styles.menuItems}>
@@ -78,7 +77,12 @@ function NavBar(props) {
           })
         }
       </nav>
-      <Button className={styles.appInfo} color={'secondary'} variant={'outlined'} disableElevation>
+      <Button
+        className={styles.appInfo}
+        color={'secondary'}
+        variant={'outlined'} disableElevation
+        onClick={props.onAboutHandler}
+      >
         <InfoOutlinedIcon />
         <p>MEDTOOL</p>
       </Button>

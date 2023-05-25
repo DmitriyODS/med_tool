@@ -13,11 +13,11 @@ import {
   setLoading,
   setUser,
 } from '../../store/rootSlice';
-import { AccessTokenKey, RefreshTokenKey, UrlPages, UserIDKey } from '../../globals/consts';
-import { Refresh } from '../../api/auth';
+import { AccessTokenKey, UrlPages, UserIDKey } from '../../globals/consts';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
 import { enqueueSnackbar } from 'notistack';
 import { GetUserByID } from '../../api/user';
+import AboutDialog from './AboutDialog/AboutDialog';
 
 function Home() {
   const dispatch = useDispatch();
@@ -25,6 +25,16 @@ function Home() {
   const isLoading = useSelector(selectIsLoading);
   const isLogin = useSelector(selectIsLogin);
   const location = useLocation();
+
+  const [showAboutDialog, setShowAboutDialog] = React.useState(false);
+
+  const onOpenAboutDialogHandler = useCallback(() => {
+    setShowAboutDialog(true);
+  }, []);
+
+  const onCloseAboutDialogHandler = useCallback(() => {
+    setShowAboutDialog(false);
+  }, []);
 
   // проверим авторизацию пользователя
   useEffect(() => {
@@ -72,7 +82,10 @@ function Home() {
     <div className={styles.root}>
       {isLoading ? <LoadingScreen /> : (
         <>
-          <NavBar logoutHandler={onLogoutHandler} menuItems={[
+          {showAboutDialog && (
+            <AboutDialog open={showAboutDialog} onClose={onCloseAboutDialogHandler} />
+          )}
+          <NavBar onAboutHandler={onOpenAboutDialogHandler} logoutHandler={onLogoutHandler} menuItems={[
             { name: 'Дневник', icon: <EditNoteOutlinedIcon />, path: UrlPages.Diary },
             { name: 'Статистика', icon: <TimelineOutlinedIcon />, path: UrlPages.Statistics },
             { name: 'Болезни', icon: <MedicalServicesOutlinedIcon />, path: UrlPages.Disease },

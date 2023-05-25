@@ -7,13 +7,17 @@ const {
   SelectDiseaseByID,
 } = require('../store/disease');
 
-async function GetDiseaseListByUserID(curUser, sort, filter, offset, limit) {
+async function GetDiseaseListByUserID(curUser, startIndex, endIndex) {
+  // TODO: не успеваю доделать
   // готовим сортировки и фильтры
-  const sortField = MakeSortArr(sort);
-  const filterObj = MakeFilterArr(filter);
+  // const sortField = MakeSortArr(sort);
+  // const filterObj = MakeFilterArr(filter);
+
+  const offset = startIndex;
+  const limit = endIndex - startIndex;
 
   // получаем и возвращаем список записей
-  return await SelectDiseaseListByUserID(curUser.id, sortField, filterObj, offset, limit);
+  return await SelectDiseaseListByUserID(curUser.id, offset, limit);
 }
 
 async function GetDiseaseByID(curUser, diseaseID) {

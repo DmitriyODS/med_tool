@@ -6,20 +6,15 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../theme/tableTheme.css';
 import { setCurItem } from '../../store/diarySlice';
 import { useDispatch } from 'react-redux';
-import { GetDiary } from '../../api/diary';
 import { enqueueSnackbar } from 'notistack';
+import { GetDisease } from '../../api/disease';
 
 const tableColumns = [
-  { width: 300, minWidth: 170, headerName: 'ФИО', field: 'fio' },
-  { width: 140, minWidth: 140, headerName: 'Дата', field: 'dateCreated' },
-  { width: 160, minWidth: 140, headerName: 'Время суток', field: 'typeDay' },
-  { width: 140, minWidth: 140, headerName: 'Давление', field: 'pressure' },
-  { width: 100, minWidth: 100, headerName: 'Пульс', field: 'pulse' },
-  { width: 220, minWidth: 140, headerName: 'Температура тела', field: 'bodyTemperature' },
-  { width: 100, minWidth: 100, headerName: 'Вес', field: 'weight' },
-  { width: 100, minWidth: 100, headerName: 'Сахар', field: 'sugar' },
-  { width: 100, minWidth: 100, headerName: 'Пол', field: 'gender' },
-  { width: 100, minWidth: 100, headerName: 'Дата рождения', field: 'birthday' },
+  { width: 100, minWidth: 140, headerName: 'Статус', field: 'status' },
+  { width: 140, minWidth: 140, headerName: 'Название', field: 'name' },
+  { width: 160, minWidth: 140, headerName: 'Состояние', field: 'info' },
+  { width: 140, minWidth: 140, headerName: 'Дата начала', field: 'dateStart' },
+  { width: 100, minWidth: 100, headerName: 'Дата окончания', field: 'dateEnd' },
 ];
 
 const configColumn = {
@@ -28,7 +23,7 @@ const configColumn = {
   resizable: true,
 };
 
-export function DiaryTable(props) {
+export function DiseaseTable(props) {
   const gridRef = useRef();
   const dispatch = useDispatch();
 
@@ -49,7 +44,7 @@ export function DiaryTable(props) {
     const dataSource = {
       rowCount: undefined,
       getRows: (params) => {
-        const result = GetDiary(params.startRow, params.endRow);
+        const result = GetDisease(params.startRow, params.endRow);
         result.then((data) => {
           let lastRow = -1;
           if (data.length < (params.endRow - params.startRow)) {

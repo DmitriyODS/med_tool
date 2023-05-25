@@ -20,14 +20,15 @@ diseaseRouter.use(express.json());
 
 async function diseaseGetHandler(req, res) {
   try {
-    const sort = req.query.sort;
-    const filter = req.query.filter;
+    // TODO: не успеваю доделать
+    // const sort = req.query.sort;
+    // const filter = req.query.filter;
     const curUser = req.user;
-    const offset = req.query.offset;
-    const limit = req.query.limit;
+    const startIndex = req.query.startIndex;
+    const endIndex = req.query.endIndex;
 
     // обрабатывам запрос
-    const result = await GetDiseaseListByUserID(curUser, sort, filter, offset, limit);
+    const result = await GetDiseaseListByUserID(curUser, startIndex, endIndex);
 
     // отправляем данные клиенту
     res.json(MakeSuccessResponse(result));

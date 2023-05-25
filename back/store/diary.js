@@ -1,20 +1,25 @@
-const { SortArrToQueryStr, FilterArrToQueryStr } = require('../globals/utils');
+// const { SortArrToQueryStr, FilterArrToQueryStr } = require('../globals/utils');
 const { db } = require('./store');
 const { Diary } = require('../models/diary');
 
 const sqlSelectDiaryList = `
-SELECT id,
-       user_id,
-       pressure,
-       pulse,
-       body_temperature,
-       weight,
-       sugar,
-       "info",
-       type_day,
-       date_created
-FROM user_data.diary
+SELECT d.id,
+       d.user_id,
+       d.pressure,
+       d.pulse,
+       d.body_temperature,
+       d.weight,
+       d.sugar,
+       d."info",
+       d.type_day,
+       d.date_created,
+       u.fio,
+       u.gender,
+       u.birthday
+FROM user_data.diary AS d
+         INNER JOIN user_data.users AS u on u.id = d.user_id
 WHERE user_id = $1
+OFFSET $2 LIMIT $3;
 `;
 
 const sqlSelectDiaryByID = `
@@ -67,23 +72,24 @@ WHERE id = $1
   AND user_id = $2;
 `;
 
-async function SelectDiaryListByUserID(userID, sorts, filters, offset, limit) {
-  const querySorts = SortArrToQueryStr(sorts);
-  const queryFilters = FilterArrToQueryStr(filters);
-
-  let query = sqlSelectDiaryList;
-  if (queryFilters !== '') {
-    query += ` AND ${queryFilters}`;
-  }
-
-  if (querySorts !== '') {
-    query += ` ORDER BY ${querySorts}`;
-  }
-
-  query += ` OFFSET $2 LIMIT $3`;
+async function SelectDiaryListByUserID(userID, offset, limit) {
+  // TODO: не успеваю доделать (и не требовалось по ТЗ)
+  // const querySorts = SortArrToQueryStr(sorts);
+  // const queryFilters = FilterArrToQueryStr(filters);
+  //
+  // let query = sqlSelectDiaryList;
+  // if (queryFilters !== '') {
+  //   query += ` AND ${queryFilters}`;
+  // }
+  //
+  // if (querySorts !== '') {
+  //   query += ` ORDER BY ${querySorts}`;
+  // }
+  //
+  // query += ` OFFSET $2 LIMIT $3`;
 
   try {
-    const diaryLst = await db.any(query, [userID, offset, limit]);
+    const diaryLst = await db.any(sqlSelectDiaryList, [userID, offset, limit]);
     return diaryLst.map((it) => {
       const diary = new Diary();
       diary.placeholderSelect(it);

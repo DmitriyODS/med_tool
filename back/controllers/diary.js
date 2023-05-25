@@ -1,13 +1,17 @@
 const { MakeSortArr, MakeFilterArr } = require('../globals/utils');
 const { SelectDiaryListByUserID, SelectDiaryByID, InsertDiary, UpdateDiary, DeleteDiary } = require('../store/diary');
 
-async function GetDiaryListByUserID(curUser, sort, filter, offset, limit) {
+async function GetDiaryListByUserID(curUser, startIndex, endIndex) {
+  // TODO: не успеваю доделать
   // готовим сортировки и фильтры
-  const sortField = MakeSortArr(sort);
-  const filterObj = MakeFilterArr(filter);
+  // const sortField = MakeSortArr(sort);
+  // const filterObj = MakeFilterArr(filter);
+
+  const offset = startIndex;
+  const limit = endIndex - startIndex;
 
   // получаем и возвращаем список записей
-  return await SelectDiaryListByUserID(curUser.id, sortField, filterObj, offset, limit);
+  return await SelectDiaryListByUserID(curUser.id, offset, limit);
 }
 
 async function GetDiaryByID(curUser, diaryID) {
