@@ -2,9 +2,16 @@ import React from 'react';
 import styles from './Diary.module.css';
 import { Tab, Tabs } from '@mui/material';
 import { connect } from 'react-redux';
-import { selectCurItem, selectFilterDay, setFilterDay } from '../../store/diarySlice';
+import {
+  selectCurItem,
+  selectFilterDay,
+  selectOpenEditDialog,
+  selectViewMode,
+  setFilterDay, setOpenEditDialog,
+} from '../../store/diarySlice';
 import { DiaryTable } from './table';
 import { DiaryToolBar } from './toolbar';
+import EditDialog from './EditDialog/EditDialog';
 
 class Diary extends React.Component {
   constructor(props) {
@@ -19,8 +26,29 @@ class Diary extends React.Component {
     document.title = 'MedTool | Дневник';
   }
 
+  onCloseEditDialogHandler = () => {
+    this.props.dispatch(setOpenEditDialog(false));
+  };
+
+  onSaveEditDialogHandler = () => {
+
+  };
+
+  onOpenEditDialogHandler = () => {
+    this.props.dispatch(setOpenEditDialog(true));
+  };
+
   render() {
     return <div className={styles.root}>
+      {this.props.isOpenEditDialog && (
+        <EditDialog
+          onClose={this.onCloseEditDialogHandler}
+          onSave={this.onSaveEditDialogHandler}
+          isOpen={this.props.isOpenEditDialog}
+          editMode={this.props.editMode}
+          selectID={this.props.curItem.id}
+        />
+      )}
       <div className={styles.header}>
         <h1>Дневник</h1>
         <div className={styles.filters}>
@@ -43,6 +71,8 @@ function mapStateToProps(state) {
   return {
     filterDay: selectFilterDay(state),
     curItem: selectCurItem(state),
+    isOpenEditDialog: selectOpenEditDialog(state),
+    editMode: selectViewMode(state),
   };
 }
 

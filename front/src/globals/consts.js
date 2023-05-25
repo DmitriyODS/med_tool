@@ -14,3 +14,9 @@ export const AuthTypes = {
 export const RefreshTokenKey = 'refreshToken';
 export const AccessTokenKey = 'accessToken';
 export const UserIDKey = 'userID';
+
+export const EditModes = {
+  Create: 0,
+  Edit: 1,
+  View: 2,
+};

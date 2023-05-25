@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { selectCurItem, selectFilterTypeDisease, setFilterTypeDisease } from '../../store/diseaseSlice';
 import { DiseaseToolBar } from './toolbar';
 import { DiseaseTable } from './table';
+import EditDialog from '../disease/EditDialog/EditDialog';
+import { selectOpenEditDialog, selectViewMode } from '../../store/diseaseSlice';
+import { setOpenEditDialog } from '../../store/diseaseSlice';
 
 class Disease extends React.Component {
   constructor(props) {
@@ -19,8 +22,29 @@ class Disease extends React.Component {
     document.title = 'MedTool | Болезни';
   }
 
+  onCloseEditDialogHandler = () => {
+    this.props.dispatch(setOpenEditDialog(false));
+  };
+
+  onSaveEditDialogHandler = () => {
+
+  };
+
+  onOpenEditDialogHandler = () => {
+    this.props.dispatch(setOpenEditDialog(true));
+  };
+
   render() {
     return <div className={styles.root}>
+      {this.props.isOpenEditDialog && (
+        <EditDialog
+          onClose={this.onCloseEditDialogHandler}
+          onSave={this.onSaveEditDialogHandler}
+          isOpen={this.props.isOpenEditDialog}
+          editMode={this.props.editMode}
+          selectID={this.props.curItem.id}
+        />
+      )}
       <div className={styles.header}>
         <h1>Болезни</h1>
         <div className={styles.filters}>
@@ -43,6 +67,8 @@ function mapStateToProps(state) {
   return {
     filterTypeDisease: selectFilterTypeDisease(state),
     curItem: selectCurItem(state),
+    isOpenEditDialog: selectOpenEditDialog(state),
+    editMode: selectViewMode(state),
   };
 }
 
