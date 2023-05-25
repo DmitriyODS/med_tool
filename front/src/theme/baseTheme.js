@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material';
+import { ruRU } from '@mui/x-date-pickers/locales';
 
 const BaseTheme = createTheme({
   palette: {
@@ -30,6 +31,6 @@ const BaseTheme = createTheme({
       },
     },
   },
-});
+}, ruRU);
 
 export default BaseTheme;

@@ -4,6 +4,8 @@ import { Avatar, Button, Menu, MenuItem, Paper } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { NavLink } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useSelector } from 'react-redux';
+import { selectUserLogin } from '../../store/rootSlice';
 
 function NavItem(props) {
   return (
@@ -26,7 +28,10 @@ function NavBar(props) {
   const [userMenuAnchorEl, setUserMenuAnchorEl] = React.useState(null);
   const open = Boolean(userMenuAnchorEl);
 
-  const userName = props.user === null ? 'Гость' : props.user.name;
+  let userLogin = useSelector(selectUserLogin);
+  if (!userLogin) {
+    userLogin = 'Гость';
+  }
 
   const onOpenUserMenuCardHandler = (event) => {
     setUserMenuAnchorEl(event.currentTarget);
@@ -49,8 +54,8 @@ function NavBar(props) {
     <Paper className={styles.root}>
       <Button className={styles.userCard} variant={'outlined'} color={'secondary'} disableElevation
               onClick={onOpenUserMenuCardHandler}>
-        <Avatar className={styles.avatar}>{userName[0]}</Avatar>
-        <p>{userName}</p>
+        <Avatar className={styles.avatar}>{userLogin[0]}</Avatar>
+        <p>{userLogin}</p>
       </Button>
       <Menu
         id='user-menu'

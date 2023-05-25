@@ -8,31 +8,14 @@ services:
       - medtool-net
     restart: always
     volumes:
-      - ${PWD}/scripts:/scripts:ro
-      - ${PWD}/backups:/backups:rw
+      - ./scripts:/scripts:ro
+      - ./backups:/backups:rw
       - medtool-pg-data:/var/lib/postgresql/data/:rw
     environment:
       - "TZ=Europe/Moscow"
       - "PGTZ=Europe/Moscow"
       - "POSTGRES_PASSWORD=postgres"
       - "PGDATA=/var/lib/postgresql/data/"
-    logging:
-      options:
-        max-size: "1024k"
-        max-file: "5"
-
-  back:
-    image: "osipovskijdima/medtool-back:20230524.1"
-    ports:
-      - "8080:8080"
-    networks:
-      - medtool-net
-    restart: always
-    environment:
-      - TZ=Europe/Moscow
-    env_file: environment.env
-    depends_on:
-      - postgres
     logging:
       options:
         max-size: "1024k"

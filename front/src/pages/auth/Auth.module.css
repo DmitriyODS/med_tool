@@ -26,23 +26,3 @@
     width: 18rem;
     margin: auto;
 }
-
-.form {
-    display: flex;
-    flex-direction: column;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-}
-
-.passwordField {
-    margin: 0;
-    width: 100% !important;
-}
-
-.spaceBottom {
-    margin-bottom: 1.4rem;
-}
-
-.spaceTop {
-    margin-top: 1.4rem;
-}

@@ -5,3 +5,10 @@ export const UrlPages = {
   Disease: '/disease',
   Statistics: '/statistics',
 };
+
+export const AuthTypes = {
+  Auth: 0,
+  Registration: 1,
+};
+
+export const RefreshTokenKey = 'refreshToken';

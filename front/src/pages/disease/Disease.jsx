@@ -17,6 +17,10 @@ class Disease extends React.Component {
     this.props.dispatch(setFilterTypeDisease(newValue));
   };
 
+  componentDidMount() {
+    document.title = 'MedTool | Болезни';
+  }
+
   render() {
     return <div className={styles.root}>
       <div className={styles.header}>

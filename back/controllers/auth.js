@@ -40,6 +40,8 @@ async function Auth(login, password) {
   return {
     accessToken,
     refreshToken,
+    login: user.login,
+    userID: user.id,
   };
 }
 
@@ -62,10 +64,16 @@ async function Refresh(refreshToken) {
     //  как только получили, но из-за "тестовости" проекта, не будем пока заморачиваться
     const sessionID = await DeleteSession(refreshToken);
     if (sessionID === 0) {
-      console.log("не удалось удалить сессию из БД");
+      console.log('не удалось удалить сессию из БД');
     }
 
     throw new Error('сессия устарела');
+  }
+
+  // получаем пользователя из БД
+  const user = await SelectUserByID(session.userID);
+  if (user.id === 0) {
+    console.log('не удалось получить пользователя из БД');
   }
 
   // если сессия найдена, то генерируем новые токены
@@ -83,6 +91,8 @@ async function Refresh(refreshToken) {
   return {
     accessToken,
     refreshToken: newRefreshToken,
+    login: user.login,
+    userID: user.id,
   };
 }
 

@@ -7,6 +7,10 @@ class Statistics extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    document.title = 'MedTool | Статистика';
+  }
+
   render() {
     return <div className={styles.root}>
       <div className={styles.header}>

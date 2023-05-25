@@ -15,6 +15,10 @@ class Diary extends React.Component {
     this.props.dispatch(setFilterDay(newValue));
   };
 
+  componentDidMount() {
+    document.title = 'MedTool | Дневник';
+  }
+
   render() {
     return <div className={styles.root}>
       <div className={styles.header}>

@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { AuthTypes } from '../globals/consts';
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    authMode: 0,
+    authMode: AuthTypes.Auth,
   },
   reducers: {
     changeAuthMode: (state, action) => {
