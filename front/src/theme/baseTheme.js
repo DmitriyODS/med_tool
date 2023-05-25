@@ -26,9 +26,9 @@ const BaseTheme = createTheme({
         root: {
           borderRadius: '1rem',
           padding: '1rem',
-        }
-      }
-    }
+        },
+      },
+    },
   },
 });
 
