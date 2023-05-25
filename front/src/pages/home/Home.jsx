@@ -13,9 +13,11 @@ import {
   setLoading,
   setUser,
 } from '../../store/rootSlice';
-import { RefreshTokenKey, UrlPages } from '../../globals/consts';
+import { AccessTokenKey, RefreshTokenKey, UrlPages, UserIDKey } from '../../globals/consts';
 import { Refresh } from '../../api/auth';
 import LoadingScreen from '../../components/loadingScreen/LoadingScreen';
+import { enqueueSnackbar } from 'notistack';
+import { GetUserByID } from '../../api/user';
 
 function Home() {
   const dispatch = useDispatch();
@@ -29,25 +31,25 @@ function Home() {
     if (!isLogin) {
       dispatch(setLoading(true));
 
-      // попытаемся найти refresh токен в localStorage
-      const refreshToken = localStorage.getItem(RefreshTokenKey);
-      if (!refreshToken) {
+      // попытаемся найти данные пользователя в localStorage
+      const accessToken = localStorage.getItem(AccessTokenKey);
+      const userID = localStorage.getItem(UserIDKey);
+      if (!accessToken || !userID) {
         // если не нашли, идём на авторизацию
         navigate(UrlPages.Auth, { replace: true });
         dispatch(setLoading(false));
         return;
       }
 
-      // если нашли, обновим токен
-      const result = Refresh(refreshToken);
+      // если нашли, обновим данные
+      const result = GetUserByID(userID);
       result.then((userData) => {
-        // если всё хорошо, обновим данные пользователя и токен в localStorage
         dispatch(setUser(userData));
-        localStorage.setItem(RefreshTokenKey, userData.refreshToken);
       }, (error) => {
-        // если не удалось обновить токен, удалим его из localStorage и перейдём на авторизацию
-        console.log(`Ошибка обновления токена: ${error}`);
-        localStorage.removeItem(RefreshTokenKey);
+        // если не удалось получить данные, чистим localStorage и переходим на авторизацию
+        enqueueSnackbar(`Ошибка получения данныех: ${error}`, { variant: 'error' });
+        localStorage.removeItem(AccessTokenKey);
+        localStorage.removeItem(UserIDKey);
         navigate(UrlPages.Auth, { replace: true });
       });
 

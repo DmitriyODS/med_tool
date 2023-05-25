@@ -6,7 +6,7 @@ export function GetAuthFormValidation(isRegistration) {
       login: yup.string().required('Укажите логин'),
       fio: yup.string().required('Укажите ФИО'),
       height: yup.number().required('Укажите рост'),
-      birthDate: yup.mixed().required('Укажите дату рождения'),
+      birthday: yup.mixed().required('Укажите дату рождения'),
       gender: yup.string().required('Укажите пол'),
     });
   }

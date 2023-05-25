@@ -12,6 +12,7 @@ function CTextField(props) {
 
   return (
     <TextField
+      className={props.className}
       fullWidth={props.fullWidth}
       label={props.label}
       variant={'outlined'}

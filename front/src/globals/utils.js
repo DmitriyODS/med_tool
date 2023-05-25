@@ -1,4 +1,4 @@
-import { RefreshTokenKey } from './consts';
+import { AccessTokenKey, RefreshTokenKey } from './consts';
 import { Refresh } from '../api/auth';
 
 export async function Authentication() {
@@ -10,4 +10,8 @@ export async function Authentication() {
 
   // получили, пытаемся запросить и вернуть access-токен
   return await Refresh(refreshToken);
+}
+
+export function GetJWTFromLocalStorage() {
+  return localStorage.getItem(AccessTokenKey);
 }

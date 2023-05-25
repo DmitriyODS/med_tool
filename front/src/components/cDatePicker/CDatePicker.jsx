@@ -12,6 +12,7 @@ function CDatePicker(props) {
 
   return (
     <DatePicker
+      className={props.className}
       sx={{ width: '100%' }}
       label={props.label}
       disabled={props.disabled}

@@ -18,7 +18,7 @@ RETURNING id;
 const sqlUpdateSession = `
 UPDATE user_data.sessions
 SET refresh_token = $1
-WHERE user_id = $2
+WHERE user_id = $2 AND refresh_token = $3
 RETURNING id;
 `;
 
@@ -49,9 +49,9 @@ async function InsertSession(session) {
   }
 }
 
-async function UpdateSession(session) {
+async function UpdateSession(session, oldRefreshToken) {
   try {
-    return await db.one(sqlUpdateSession, session.placeholderUpdate());
+    return await db.one(sqlUpdateSession, session.placeholderUpdate(oldRefreshToken));
   } catch (err) {
     return 0;
   }

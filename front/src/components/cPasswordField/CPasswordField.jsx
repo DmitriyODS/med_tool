@@ -14,6 +14,7 @@ function CPasswordField(props) {
 
   return (
     <PasswordField
+      className={props.className}
       fullWidth={props.fullWidth}
       label={props.label}
       disabled={props.disabled}

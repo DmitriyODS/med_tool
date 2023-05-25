@@ -12,12 +12,13 @@ function CInputSelect(props) {
 
   return (
     <InputSelect
+      className={props.className}
       name={field.name}
       value={field.value}
       label={props.label}
       disabled={props.disabled}
       onChange={field.onChange}
-      onLoadData={props.onLoadData}
+      items={props.items}
       fullWidth={props.fullWidth}
       filters={props.filters}
       required={props.required}

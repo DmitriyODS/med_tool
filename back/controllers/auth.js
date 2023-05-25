@@ -1,4 +1,4 @@
-const { SelectUserByLoginPass } = require('../store/users');
+const { SelectUserByLoginPass, SelectUserByID } = require('../store/users');
 const {
   MakePayloadJWT,
   GenerateJWTAccessToken,
@@ -83,7 +83,7 @@ async function Refresh(refreshToken) {
 
   // обвноляем сессию в БД
   session.refreshToken = newRefreshToken;
-  const sessionID = await UpdateSession(session);
+  const sessionID = await UpdateSession(session, refreshToken);
   if (sessionID === 0) {
     throw new Error('ошибка обновления сессии');
   }

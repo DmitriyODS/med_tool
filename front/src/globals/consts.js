@@ -12,3 +12,5 @@ export const AuthTypes = {
 };
 
 export const RefreshTokenKey = 'refreshToken';
+export const AccessTokenKey = 'accessToken';
+export const UserIDKey = 'userID';

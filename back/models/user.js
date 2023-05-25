@@ -85,7 +85,7 @@ function MakeUserFromJsonData(jsonData) {
 
   user.id = jsonData.id;
   user.fio = jsonData.fio;
-  user.birthday = new Date(jsonData.birthday * 1000);
+  user.birthday = new Date(jsonData.birthday);
   user.height = jsonData.height;
   user.dateCreate = new Date();
   user.gender = jsonData.gender;

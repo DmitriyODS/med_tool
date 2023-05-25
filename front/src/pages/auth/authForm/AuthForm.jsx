@@ -1,62 +1,69 @@
 import React from 'react';
 import styles from './AuthForm.module.css';
-import { Button, TextField } from '@mui/material';
-import InputPassword from '../../../components/inputPassword/InputPassword';
-import SelectField from '../../../components/selectField/SelectField';
-import { DatePicker } from '@mui/x-date-pickers';
+import { Button } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { GetAuthFormValidation } from './validation';
 import { AuthTypes } from '../../../globals/consts';
+import CTextField from '../../../components/cTextField/CTextField';
+import CPasswordField from '../../../components/cPasswordField/CPasswordField';
+import CDatePicker from '../../../components/cDatePicker/CDatePicker';
+import CInputSelect from '../../../components/cInputSelect/CInputSelect';
+import { GetInitAuthFormData } from './data';
 
 function AuthForm(props) {
   const isRegistration = props.authMode === AuthTypes.Registration;
 
   const { handleSubmit, control, setValue } = useForm({
     resolver: yupResolver(GetAuthFormValidation(isRegistration)),
-    values: dataField,
+    values: GetInitAuthFormData(isRegistration),
   });
 
   return (
-    <form className={styles.root} onSubmit={}>
-      <TextField
+    <form className={styles.root} onSubmit={handleSubmit(props.onSubmit)}>
+      <CTextField
         className={styles.spaceBottom}
-        id={'login-input'}
+        name={'login'}
         label={'Логин'}
-        variant={'outlined'}
+        fullWidth
+        control={control}
+        required
       />
-      {
-        props.authMode === 0 && (
-          <InputPassword
-            className={styles.passwordField}
-            id={'password-input'}
-          />
-        )
-      }
       {
         props.authMode === 1 && (
           <>
-            <TextField
+            <CTextField
               className={styles.spaceBottom}
-              id={'fio-input'}
+              name={'fio'}
               label={'ФИО'}
-              variant={'outlined'}
+              fullWidth
+              control={control}
+              required
             />
-            <TextField
-              id={'height-input'}
+            <CTextField
               className={styles.spaceBottom}
+              name={'height'}
               label={'Рост'}
-              variant={'outlined'}
-              type={'number'}
+              fullWidth
+              control={control}
+              required
+              typeField={'number'}
             />
-            <DatePicker
+            <CDatePicker
               className={styles.spaceBottom}
+              name={'birthday'}
               label={'Дата рождения'}
-              format='DD.MM.YYYY'
+              fullWidth
+              control={control}
+              required
             />
-            <SelectField
-              id={'gender-input'}
+            <CInputSelect
+              className={styles.spaceBottom}
+              name={'gender'}
               label={'Пол'}
+              fullWidth
+              control={control}
+              required
               items={[
                 { value: 0, label: 'Мужской' },
                 { value: 1, label: 'Женский' },
@@ -65,9 +72,18 @@ function AuthForm(props) {
           </>
         )
       }
+      <CPasswordField
+        className={styles.passwordField}
+        name={'password'}
+        label={'Пароль'}
+        fullWidth
+        control={control}
+        required
+      />
       <Button
         className={styles.spaceTop}
         variant={'contained'}
+        onClick={handleSubmit(props.onSubmit)}
       >
         {props.authMode === 0 ? 'Войти' : 'Зарегистрироваться'}
       </Button>

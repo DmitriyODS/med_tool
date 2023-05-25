@@ -13,9 +13,10 @@ function InputSelect(props) {
     <FormControl
       fullWidth={props.fullWidth}
       disabled={props.disabled}
-      color={'textInput'}
+      color={'primary'}
       required={props.required}
       error={props.error}
+      className={props.className}
     >
       <InputLabel id={`${props.name}-label`}>{props.label}</InputLabel>
       <Select

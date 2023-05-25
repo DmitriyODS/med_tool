@@ -29,8 +29,8 @@ class Session {
     return [this.userID, this.refreshToken];
   }
 
-  placeholderUpdate() {
-    return [this.refreshToken, this.userID];
+  placeholderUpdate(oldRefreshToken) {
+    return [this.refreshToken, this.userID, oldRefreshToken];
   }
 }
 
