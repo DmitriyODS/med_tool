@@ -31,9 +31,34 @@ const BaseTheme = createTheme(
           },
         },
       },
+      MuiDialog: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'rgba(32,26,26,0.6)',
+          },
+          paper: {
+            padding: '1rem',
+            backgroundImage: 'none',
+            boxShadow: 'none',
+          },
+        },
+      },
+      MuiDialogTitle: {
+        styleOverrides: {
+          root: {
+            padding: '0 0 0 2rem',
+            color: '#daeeff',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: '2rem',
+            fontWeight: 'lighter',
+          },
+        },
+      },
     },
   },
-  ruRU
+  ruRU,
 );
 
 export default BaseTheme;

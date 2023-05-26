@@ -20,3 +20,15 @@ export const EditModes = {
   Edit: 1,
   View: 2,
 };
+
+export const DiseaseStatuses = {
+  Sick: '0',
+  Cured: '1',
+  Chronic: '2',
+};
+
+export const TimeOfDay = {
+  Morning: '0',
+  Day: '1',
+  Evening: '2',
+};

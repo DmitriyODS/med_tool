@@ -12,7 +12,8 @@ SELECT id,
        "info"
 FROM user_data.disease
 WHERE user_id = $1
- OFFSET $2 LIMIT $3;
+ORDER BY id DESC
+OFFSET $2 LIMIT $3;
 `;
 
 const sqlSelectDiseaseByID = `

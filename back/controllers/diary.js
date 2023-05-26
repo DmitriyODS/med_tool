@@ -25,6 +25,8 @@ async function GetDiaryByID(curUser, diaryID) {
 }
 
 async function AddDiary(curUser, diary) {
+  diary.userID = curUser.id;
+
   // валидируем данные
   const res = diary.validate(true);
   if (res !== '') {
@@ -59,7 +61,7 @@ async function UpdateDataDiary(curUser, diary) {
   }
 
   // обновляем запись
-  const resUpdate = await UpdateDiary(diary);
+  const resUpdate = await UpdateDiary(curUser.id, diary);
   if (resUpdate <= 0) {
     throw new Error('ошибка обновления записи');
   }

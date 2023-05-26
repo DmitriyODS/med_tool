@@ -19,6 +19,7 @@ SELECT d.id,
 FROM user_data.diary AS d
          INNER JOIN user_data.users AS u on u.id = d.user_id
 WHERE user_id = $1
+ORDER BY d.id DESC
 OFFSET $2 LIMIT $3;
 `;
 

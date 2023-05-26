@@ -1,5 +1,6 @@
 import { AccessTokenKey, RefreshTokenKey } from './consts';
 import { Refresh } from '../api/auth';
+import dayjs from 'dayjs';
 
 export async function Authentication() {
   // пытаемся получить refresh-токен из localStorage
@@ -14,4 +15,20 @@ export async function Authentication() {
 
 export function GetJWTFromLocalStorage() {
   return localStorage.getItem(AccessTokenKey);
+}
+
+export function GetDayjsFromUnix(date) {
+  if (date === 0) {
+    return null;
+  }
+
+  return dayjs.unix(date);
+}
+
+export function GetUnixFromDayjs(date) {
+  if (date === null) {
+    return 0;
+  }
+
+  return date.unix();
 }

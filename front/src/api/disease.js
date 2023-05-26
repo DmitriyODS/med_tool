@@ -85,6 +85,7 @@ export async function CreateDisease(disease) {
         method: 'POST',
         headers: {
           authorization: jwtKey,
+          'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(req),
       });
@@ -118,6 +119,7 @@ export async function EditDisease(disease) {
         method: 'PUT',
         headers: {
           authorization: jwtKey,
+          'Content-Type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(req),
       });

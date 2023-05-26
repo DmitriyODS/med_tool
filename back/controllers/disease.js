@@ -31,6 +31,8 @@ async function GetDiseaseByID(curUser, diseaseID) {
 }
 
 async function AddDisease(curUser, disease) {
+  disease.userID = curUser.id;
+
   // валидируем данные
   const res = disease.validate(true);
   if (res !== '') {

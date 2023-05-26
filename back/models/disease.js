@@ -83,8 +83,7 @@ function MakeDiseaseFromJsonData(data) {
   disease.userID = data.userID;
   disease.name = data.name;
   disease.info = data.info;
-  disease.statusID = data.statusID;
-  disease.statusName = data.statusName;
+  disease.status = data.status;
   disease.dateStart = new Date(data.dateStart * 1000);
   disease.dateEnd = new Date(data.dateEnd * 1000);
 

@@ -8,6 +8,7 @@ export const diseaseSlice = createSlice({
     curItem: null,
     openEditDialog: false,
     viewMode: EditModes.View,
+    oldData: false,
   },
   reducers: {
     setFilterTypeDisease: (state, action) => {
@@ -16,21 +17,43 @@ export const diseaseSlice = createSlice({
     setCurItem: (state, action) => {
       state.curItem = action.payload;
     },
-    setOpenEditDialog: (state, action) => {
-      state.openEditDialog = action.payload;
+    openAddDialog: (state) => {
+      state.openEditDialog = true;
+      state.viewMode = EditModes.Create;
     },
-    setViewMode: (state, action) => {
-      state.viewMode = action.payload;
+    openEditDialog: (state) => {
+      state.openEditDialog = true;
+      state.viewMode = EditModes.Edit;
+    },
+    openViewDialog: (state) => {
+      state.openEditDialog = true;
+      state.viewMode = EditModes.View;
+    },
+    closeEditDialog: (state) => {
+      state.openEditDialog = false;
+      state.viewMode = EditModes.View;
+    },
+    setOldData: (state, action) => {
+      state.oldData = action.payload;
+      state.curItem = null;
     },
   },
 });
 
-export const { setFilterTypeDisease, setCurItem, setOpenEditDialog, setViewMode } =
-  diseaseSlice.actions;
+export const {
+  setFilterTypeDisease,
+  setCurItem,
+  closeEditDialog,
+  openAddDialog,
+  openEditDialog,
+  openViewDialog,
+  setOldData,
+} = diseaseSlice.actions;
 
 export const selectFilterTypeDisease = (state) => state.disease.filterTypeDisease;
 export const selectCurItem = (state) => state.disease.curItem;
 export const selectOpenEditDialog = (state) => state.disease.openEditDialog;
 export const selectViewMode = (state) => state.disease.viewMode;
+export const selectOldData = (state) => state.disease.oldData;
 
 export default diseaseSlice.reducer;

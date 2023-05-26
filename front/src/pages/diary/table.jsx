@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../theme/tableTheme.css';
-import { setCurItem } from '../../store/diarySlice';
-import { useDispatch } from 'react-redux';
+import { selectOldData, setCurItem, setOldData } from '../../store/diarySlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetDiary } from '../../api/diary';
 import { enqueueSnackbar } from 'notistack';
 
@@ -31,6 +31,16 @@ const configColumn = {
 export function DiaryTable(props) {
   const gridRef = useRef();
   const dispatch = useDispatch();
+
+  const isUpdateData = useSelector(selectOldData);
+
+  useEffect(() => {
+    if (isUpdateData) {
+      gridRef.current.api.refreshInfiniteCache();
+      gridRef.current.api.deselectAll();
+      dispatch(setOldData(false));
+    }
+  }, [isUpdateData]);
 
   const onFirstDataRenderedHandler = useCallback((params) => {
     gridRef.current.api.sizeColumnsToFit();

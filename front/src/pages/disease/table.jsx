@@ -1,13 +1,14 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import '../../theme/tableTheme.css';
 import { setCurItem } from '../../store/diseaseSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { enqueueSnackbar } from 'notistack';
 import { GetDisease } from '../../api/disease';
+import { selectOldData, setOldData } from '../../store/diseaseSlice';
 
 const tableColumns = [
   { width: 100, minWidth: 140, headerName: 'Статус', field: 'status' },
@@ -26,6 +27,15 @@ const configColumn = {
 export function DiseaseTable(props) {
   const gridRef = useRef();
   const dispatch = useDispatch();
+  const isUpdateData = useSelector(selectOldData);
+
+  useEffect(() => {
+    if (isUpdateData) {
+      gridRef.current.api.refreshInfiniteCache();
+      gridRef.current.api.deselectAll();
+      dispatch(setOldData(false));
+    }
+  }, [isUpdateData]);
 
   const onFirstDataRenderedHandler = useCallback((params) => {
     gridRef.current.api.sizeColumnsToFit();

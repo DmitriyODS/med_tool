@@ -3,12 +3,20 @@ import Grid from '@mui/material/Unstable_Grid2';
 import CTextField from '../../../components/cTextField/CTextField';
 import CInputSelect from '../../../components/cInputSelect/CInputSelect';
 import CDatePicker from '../../../components/cDatePicker/CDatePicker';
+import { DiseaseStatuses } from '../../../globals/consts';
 
 export function FormDisease(props) {
   return (
     <Grid container spacing={4} mt={1} mb={1}>
       <Grid xs={12}>
-        <CTextField name={'name'} label={'Название'} fullWidth control={props.control} required />
+        <CTextField
+          name={'name'}
+          label={'Название'}
+          fullWidth
+          control={props.control}
+          required
+          disabled={props.isViewMode}
+        />
       </Grid>
       <Grid xs={12}>
         <CInputSelect
@@ -18,27 +26,28 @@ export function FormDisease(props) {
           control={props.control}
           required
           items={[
-            { value: 0, label: 'Болен' },
-            { value: 1, label: 'Вылечился' },
-            { value: 2, label: 'Хроническая' },
+            { value: DiseaseStatuses.Sick, label: 'Болен' },
+            { value: DiseaseStatuses.Cured, label: 'Вылечился' },
+            { value: DiseaseStatuses.Chronic, label: 'Хроническая' },
           ]}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
         <CDatePicker
           name={'dateStart'}
           label={'Дата начала'}
-          disabled={props.isViewMode || props.isEditMode}
           control={props.control}
           required
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
         <CDatePicker
           name={'dateEnd'}
           label={'Дата завершения'}
-          disabled={props.isViewMode || props.isEditMode}
           control={props.control}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={12}>

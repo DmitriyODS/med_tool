@@ -16,8 +16,9 @@ export function FormDiary(props) {
           items={[
             { value: 0, label: 'Утро' },
             { value: 1, label: 'День' },
-            { value: 1, label: 'Вечер' },
+            { value: 2, label: 'Вечер' },
           ]}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
@@ -28,6 +29,7 @@ export function FormDiary(props) {
           control={props.control}
           required
           typeField={'number'}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
@@ -38,6 +40,7 @@ export function FormDiary(props) {
           control={props.control}
           required
           typeField={'number'}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
@@ -48,6 +51,7 @@ export function FormDiary(props) {
           control={props.control}
           required
           typeField={'number'}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
@@ -58,6 +62,7 @@ export function FormDiary(props) {
           control={props.control}
           required
           typeField={'number'}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={6}>
@@ -68,6 +73,7 @@ export function FormDiary(props) {
           control={props.control}
           required
           typeField={'number'}
+          disabled={props.isViewMode}
         />
       </Grid>
       <Grid xs={12}>
@@ -78,7 +84,6 @@ export function FormDiary(props) {
           fullWidth
           multiline
           maxRows={2}
-          required
           disabled={props.isViewMode}
         />
       </Grid>
