@@ -3,12 +3,16 @@ import styles from './Diary.module.css';
 import { Tab, Tabs } from '@mui/material';
 import { connect } from 'react-redux';
 import {
-  closeEditDialog, openAddDialog, openEditDialog, openViewDialog,
+  closeEditDialog,
+  openAddDialog,
+  openEditDialog,
+  openViewDialog,
   selectCurItem,
   selectFilterDay,
   selectOpenEditDialog,
   selectViewMode,
-  setFilterDay, setOldData,
+  setFilterDay,
+  setOldData,
 } from '../../store/diarySlice';
 import { DiaryTable } from './table';
 import { DiaryToolBar } from './toolbar';
@@ -18,10 +22,6 @@ import { enqueueSnackbar } from 'notistack';
 import { EditModes } from '../../globals/consts';
 
 class Diary extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   onChangeFilterDataHandler = (event, newValue) => {
     this.props.dispatch(setFilterDay(newValue));
   };
@@ -30,8 +30,7 @@ class Diary extends React.Component {
     document.title = 'MedTool | Дневник';
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-  }
+  componentDidUpdate(prevProps, prevState, snapshot) {}
 
   onCloseEditDialogHandler = () => {
     this.props.dispatch(closeEditDialog());
@@ -40,24 +39,28 @@ class Diary extends React.Component {
   onSaveEditDialogHandler = (data) => {
     if (this.props.editMode === EditModes.Create) {
       const result = CreateDiary(data);
-      result.then((res) => {
-        enqueueSnackbar('Запись успешно добавлена', { variant: 'success' });
-        this.props.dispatch(closeEditDialog());
-        this.props.dispatch(setOldData(true));
-      }).catch((err) => {
-        enqueueSnackbar(err, { variant: 'error' });
-      });
+      result
+        .then((res) => {
+          enqueueSnackbar('Запись успешно добавлена', { variant: 'success' });
+          this.props.dispatch(closeEditDialog());
+          this.props.dispatch(setOldData(true));
+        })
+        .catch((err) => {
+          enqueueSnackbar(err, { variant: 'error' });
+        });
       return;
     }
 
     const result = EditDiary(data);
-    result.then((res) => {
-      enqueueSnackbar('Запись успешно изменена', { variant: 'success' });
-      this.props.dispatch(closeEditDialog());
-      this.props.dispatch(setOldData(true));
-    }).catch((err) => {
-      enqueueSnackbar(err, { variant: 'error' });
-    });
+    result
+      .then((res) => {
+        enqueueSnackbar('Запись успешно изменена', { variant: 'success' });
+        this.props.dispatch(closeEditDialog());
+        this.props.dispatch(setOldData(true));
+      })
+      .catch((err) => {
+        enqueueSnackbar(err, { variant: 'error' });
+      });
   };
 
   onOpenAddDialogHandler = () => {
@@ -66,12 +69,14 @@ class Diary extends React.Component {
 
   onDeleteHandler = () => {
     const result = DeleteDiary(this.props.curItem?.id);
-    result.then((res) => {
-      enqueueSnackbar('Запись успешно удалена', { variant: 'success' });
-      this.props.dispatch(setOldData(true));
-    }).catch((err) => {
-      enqueueSnackbar(err, { variant: 'error' });
-    });
+    result
+      .then((res) => {
+        enqueueSnackbar('Запись успешно удалена', { variant: 'success' });
+        this.props.dispatch(setOldData(true));
+      })
+      .catch((err) => {
+        enqueueSnackbar(err, { variant: 'error' });
+      });
   };
 
   onOpenViewDialogHandler = () => {

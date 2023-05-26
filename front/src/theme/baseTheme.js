@@ -58,7 +58,7 @@ const BaseTheme = createTheme(
       },
     },
   },
-  ruRU,
+  ruRU
 );
 
 export default BaseTheme;

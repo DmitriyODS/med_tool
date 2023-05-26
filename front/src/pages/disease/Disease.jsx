@@ -3,10 +3,14 @@ import styles from './Disease.module.css';
 import { Tab, Tabs } from '@mui/material';
 import { connect } from 'react-redux';
 import {
-  closeEditDialog, openAddDialog, openEditDialog, openViewDialog,
+  closeEditDialog,
+  openAddDialog,
+  openEditDialog,
+  openViewDialog,
   selectCurItem,
   selectFilterTypeDisease,
-  setFilterTypeDisease, setOldData,
+  setFilterTypeDisease,
+  setOldData,
 } from '../../store/diseaseSlice';
 import { DiseaseToolBar } from './toolbar';
 import { DiseaseTable } from './table';
@@ -17,10 +21,6 @@ import { enqueueSnackbar } from 'notistack';
 import { CreateDisease, DeleteDisease, EditDisease } from '../../api/disease';
 
 class Disease extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   onChangeFilterDataHandler = (event, newValue) => {
     this.props.dispatch(setFilterTypeDisease(newValue));
   };
@@ -36,24 +36,28 @@ class Disease extends React.Component {
   onSaveEditDialogHandler = (data) => {
     if (this.props.editMode === EditModes.Create) {
       const result = CreateDisease(data);
-      result.then((res) => {
-        enqueueSnackbar('Запись успешно добавлена', { variant: 'success' });
-        this.props.dispatch(closeEditDialog());
-        this.props.dispatch(setOldData(true));
-      }).catch((err) => {
-        enqueueSnackbar(err, { variant: 'error' });
-      });
+      result
+        .then((res) => {
+          enqueueSnackbar('Запись успешно добавлена', { variant: 'success' });
+          this.props.dispatch(closeEditDialog());
+          this.props.dispatch(setOldData(true));
+        })
+        .catch((err) => {
+          enqueueSnackbar(err, { variant: 'error' });
+        });
       return;
     }
 
     const result = EditDisease(data);
-    result.then((res) => {
-      enqueueSnackbar('Запись успешно изменена', { variant: 'success' });
-      this.props.dispatch(closeEditDialog());
-      this.props.dispatch(setOldData(true));
-    }).catch((err) => {
-      enqueueSnackbar(err, { variant: 'error' });
-    });
+    result
+      .then((res) => {
+        enqueueSnackbar('Запись успешно изменена', { variant: 'success' });
+        this.props.dispatch(closeEditDialog());
+        this.props.dispatch(setOldData(true));
+      })
+      .catch((err) => {
+        enqueueSnackbar(err, { variant: 'error' });
+      });
   };
 
   onOpenAddDialogHandler = () => {
@@ -70,12 +74,14 @@ class Disease extends React.Component {
 
   onDeleteHandler = () => {
     const result = DeleteDisease(this.props.curItem?.id);
-    result.then((res) => {
-      enqueueSnackbar('Запись успешно удалена', { variant: 'success' });
-      this.props.dispatch(setOldData(true));
-    }).catch((err) => {
-      enqueueSnackbar(err, { variant: 'error' });
-    });
+    result
+      .then((res) => {
+        enqueueSnackbar('Запись успешно удалена', { variant: 'success' });
+        this.props.dispatch(setOldData(true));
+      })
+      .catch((err) => {
+        enqueueSnackbar(err, { variant: 'error' });
+      });
   };
 
   render() {
