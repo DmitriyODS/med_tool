@@ -21,6 +21,39 @@ services:
         max-size: "1024k"
         max-file: "5"
 
+  back:
+    image: "osipovskijdima/medtool-back:20230526.2"
+    ports:
+      - "8080:8080"
+    networks:
+      - medtool-net
+    restart: always
+    environment:
+      - TZ=Europe/Moscow
+    env_file: environment.env
+    depends_on:
+      - postgres
+    logging:
+      options:
+        max-size: "1024k"
+        max-file: "5"
+
+  front:
+    image: "osipovskijdima/medtool-front:20230526.2"
+    ports:
+      - "80:80"
+    networks:
+      - medtool-net
+    restart: always
+    environment:
+      - TZ=Europe/Moscow
+    depends_on:
+      - back
+    logging:
+      options:
+        max-size: "1024k"
+        max-file: "5"
+
 volumes:
   medtool-pg-data:
 
